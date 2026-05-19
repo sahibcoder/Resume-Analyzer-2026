@@ -11,7 +11,7 @@ export default function Home() {
         </h1>
 
         <button className="rounded-xl bg-indigo-600 px-5 py-2 text-white transition hover:bg-indigo-700">
-          Get Started
+          Login
         </button>
       </nav>
 
