@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Footer from "@/components/Footer";
+
 
 export default function Home() {
   return (
@@ -99,10 +101,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-indigo-700 py-6 text-center text-white">
-        <p>© 2026 Resume Analyzer. All rights reserved.</p>
-      </footer>
+      <Footer />
     </main>
   );
 }
