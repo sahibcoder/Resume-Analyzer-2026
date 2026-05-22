@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 export default function RegisterPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 px-4">
@@ -71,7 +72,32 @@ export default function RegisterPage() {
               )}
             </button>
           </div>
+          <div className="mt-4">
+            <label className="mb-2 block text-sm font-medium text-gray-700">
+              Confirm Password
+            </label>
 
+            <div className="relative">
+              <Lock
+                size={20}
+                className="absolute left-3 top-3.5 text-gray-400"
+              />
+
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirm password"
+                className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-10 text-gray-800 placeholder:text-gray-500 focus:border-indigo-500 focus:outline-none"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3 top-3 text-gray-500"
+              >
+                {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
+          </div>
           {/* Button */}
           <Button className="w-full rounded-xl py-6 text-base">Register</Button>
         </form>
