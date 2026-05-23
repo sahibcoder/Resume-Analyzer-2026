@@ -64,7 +64,7 @@ export default function HowItWorks() {
         {/* Steps */}
         <div className="relative mt-20">
           {/* Connection Line Desktop */}
-          <div className="absolute left-0 right-0 top-12 hidden h-px bg-gradient-to-r from-indigo-200 via-indigo-400 to-indigo-200 lg:block" />
+          <div className="absolute left-0 right-0 top-12 hidden h-px bg-linear-to-r from-indigo-200 via-indigo-400 to-indigo-200 lg:block" />
 
           <div className="grid gap-8 lg:grid-cols-4">
             {steps.map((step, index) => {
