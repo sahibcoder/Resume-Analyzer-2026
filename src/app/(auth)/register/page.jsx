@@ -12,7 +12,7 @@ export default function RegisterPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-indigo-600 via-purple-600 to-pink-500 px-4">
       <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl">
         <button
           onClick={() => router.back()}
