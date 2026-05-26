@@ -35,10 +35,10 @@ export const dashboardNav = {
        url: "/user/upload-resume",
       icon: Upload,
     },
-    {
-      title: "Settings",
-      url: "/user/settings",
-      icon: Settings,
-    },
+    // {
+    //   title: "Settings",
+    //   url: "/user/settings",
+    //   icon: Settings,
+    // },
   ],
 };

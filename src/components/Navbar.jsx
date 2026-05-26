@@ -46,7 +46,7 @@ export default function Navbar() {
         {/* Desktop Buttons */}
         <div className="hidden items-center gap-3 md:flex">
           <Link href="/login">
-            <Button variant="ghost" className="font-medium">
+            <Button className="bg-indigo-600 hover:bg-indigo-700">
               Login
             </Button>
           </Link>
