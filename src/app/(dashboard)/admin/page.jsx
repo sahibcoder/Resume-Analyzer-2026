@@ -1,6 +1,7 @@
 export const metadata = {
-  title: "Admin",
+  title: "Admin | Dashboard",
 };
+
 
 
 const page = () => {

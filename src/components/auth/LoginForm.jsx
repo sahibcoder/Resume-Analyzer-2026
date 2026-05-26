@@ -39,7 +39,7 @@ const LoginForm = () => {
       resetForm();
 
       const session = await getSession();
-      console.log("Login data :", session);
+      // console.log("Login data :", session);
 
       if (!session?.user) {
         toast.error("Session not found, please login again");

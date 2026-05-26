@@ -1,4 +1,7 @@
-import React from 'react'
+export const metadata = {
+  title: "Admin | Settings",
+};
+
 
 const page = () => {
   return (

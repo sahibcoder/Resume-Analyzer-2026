@@ -6,7 +6,7 @@ export async function POST(req) {
   try {
     const body = await req.json();
     const { email, password } = body;
-    clg("Received login data:", body);
+    // clg("Received login data:", body);
 
     //  Validation
     if (!email || !password) {

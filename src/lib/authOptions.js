@@ -20,7 +20,7 @@ export const authOptions = {
           where: { email: credentials.email },
         });
 
-        console.log("User found:", user);
+        // console.log("User found:", user);
 
         if (!user) throw new Error("User not found.");
 
