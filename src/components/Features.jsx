@@ -49,31 +49,39 @@ const features = [
 
 export default function Features() {
   return (
-    <section id="features" className="relative overflow-hidden py-24">
+    <section
+      id="features"
+      className="relative overflow-hidden py-24"
+    >
       {/* Background Blur */}
       <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-indigo-100 blur-3xl opacity-40" />
       <div className="absolute right-0 bottom-0 h-96 w-96 rounded-full bg-indigo-100 blur-3xl opacity-40" />
 
       <div className="container relative mx-auto px-4">
+
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
+
           <span className="inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700">
             Powerful Features
           </span>
 
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
             Everything You Need to
-            <span className="text-indigo-600"> Optimize Your Resume</span>
+            <span className="text-indigo-600">
+              {" "}Optimize Your Resume
+            </span>
           </h2>
 
           <p className="mt-5 text-lg text-slate-600">
-            Leverage AI-driven insights to improve ATS performance, identify
-            missing opportunities, and maximize interview success.
+            Leverage AI-driven insights to improve ATS performance,
+            identify missing opportunities, and maximize interview success.
           </p>
         </div>
 
         {/* Feature Cards */}
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
           {features.map((feature) => {
             const Icon = feature.icon;
 
@@ -151,3 +159,39 @@ export default function Features() {
     </section>
   );
 }
+
+
+// const features = [
+//   'ATS Score Analysis',
+//   'Missing Keywords Detection',
+//   'AI Suggestions',
+//   'Strengths & Weaknesses',
+//   'Section-wise Feedback',
+//   'PDF Report Download',
+// ];
+
+// export default function Features() {
+//   return (
+//     <section id="features" className="py-20">
+//       <div className="container mx-auto px-4">
+//         <div className="text-center">
+//           <h2 className="text-3xl font-bold md:text-5xl">Powerful Features</h2>
+//           <p className="mt-4 text-slate-600">
+//             Everything you need to optimize your resume.
+//           </p>
+//         </div>
+
+//         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+//           {features.map((feature) => (
+//             <div key={feature} className="rounded-3xl border p-6 shadow-sm">
+//               <h3 className="text-xl font-semibold">{feature}</h3>
+//               <p className="mt-2 text-slate-600">
+//                 Professional AI-powered analysis and recommendations.
+//               </p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }

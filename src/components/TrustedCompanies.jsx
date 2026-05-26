@@ -38,6 +38,7 @@ export default function TrustedCompanies() {
   return (
     <section className="border-y bg-white py-16">
       <div className="container mx-auto px-4">
+
         {/* Header */}
         <div className="text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700">
@@ -57,6 +58,7 @@ export default function TrustedCompanies() {
 
         {/* Company Logos */}
         <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+
           {companies.map((company) => {
             const Icon = company.icon;
 
@@ -110,6 +112,7 @@ export default function TrustedCompanies() {
 
         {/* Bottom Stats */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-sm text-slate-500">
+
           <div className="flex items-center gap-2">
             <span className="font-bold text-slate-900">50K+</span>
             Resumes Analyzed
@@ -128,8 +131,33 @@ export default function TrustedCompanies() {
             <span className="font-bold text-slate-900">10K+</span>
             Successful Job Seekers
           </div>
+
         </div>
+
       </div>
     </section>
   );
 }
+
+
+
+// export default function TrustedCompanies() {
+//   const companies = ['Google', 'Microsoft', 'Amazon', 'Meta', 'Netflix', 'Spotify'];
+
+//   return (
+//     <section className="py-12 border-y bg-slate-50">
+//       <div className="container mx-auto px-4 text-center">
+//         <p className="text-sm font-medium text-slate-500">
+//           Trusted by job seekers worldwide
+//         </p>
+//         <div className="mt-6 grid grid-cols-2 gap-6 md:grid-cols-6">
+//           {companies.map((company) => (
+//             <div key={company} className="font-semibold text-slate-400">
+//               {company}
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }

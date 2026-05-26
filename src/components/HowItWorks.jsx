@@ -44,8 +44,10 @@ export default function HowItWorks() {
       <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-indigo-100 blur-3xl opacity-40" />
 
       <div className="container relative mx-auto px-4">
+
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
+
           <span className="inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700">
             How It Works
           </span>
@@ -56,17 +58,20 @@ export default function HowItWorks() {
           </h2>
 
           <p className="mt-5 text-lg text-slate-600">
-            Upload your resume, let AI analyze it, and receive actionable
-            insights to improve your chances of landing interviews.
+            Upload your resume, let AI analyze it, and receive
+            actionable insights to improve your chances of landing interviews.
           </p>
+
         </div>
 
         {/* Steps */}
         <div className="relative mt-20">
+
           {/* Connection Line Desktop */}
-          <div className="absolute left-0 right-0 top-12 hidden h-px bg-linear-to-r from-indigo-200 via-indigo-400 to-indigo-200 lg:block" />
+          <div className="absolute left-0 right-0 top-12 hidden h-px bg-gradient-to-r from-indigo-200 via-indigo-400 to-indigo-200 lg:block" />
 
           <div className="grid gap-8 lg:grid-cols-4">
+
             {steps.map((step, index) => {
               const Icon = step.icon;
 
@@ -152,7 +157,38 @@ export default function HowItWorks() {
             Start Free Analysis
           </button>
         </div>
+
       </div>
     </section>
   );
 }
+
+// const steps = [
+//   'Upload Resume',
+//   'Paste Job Description',
+//   'AI Analysis',
+//   'Get Detailed Results',
+// ];
+
+// export default function HowItWorks() {
+//   return (
+//     <section id="how-it-works" className="bg-slate-50 py-20">
+//       <div className="container mx-auto px-4">
+//         <div className="text-center">
+//           <h2 className="text-3xl font-bold md:text-5xl">How It Works</h2>
+//         </div>
+
+//         <div className="mt-12 grid gap-6 md:grid-cols-4">
+//           {steps.map((step, index) => (
+//             <div key={step} className="rounded-3xl bg-white p-6 text-center shadow-sm">
+//               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-violet-100 font-bold text-violet-700">
+//                 {index + 1}
+//               </div>
+//               <h3 className="mt-4 font-semibold">{step}</h3>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }

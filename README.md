@@ -34,3 +34,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+Neon Database connect the connection String only 
+Prisma Command
+npx prisma generate
+npx prisma migrate dev --name init
+
+
+Full Stack Web Developer
+Results-driven Full Stack Web Developer with experience in building responsive and scalable web applications using JavaScript, React.js, Next.js, Node.js, Express.js, MongoDB, and PostgreSQL. Skilled in front-end and back-end development, REST API integration, authentication, database management, and deploying high-performance applications with a focus on clean code and user experience.

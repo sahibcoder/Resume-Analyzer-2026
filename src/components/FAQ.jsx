@@ -40,14 +40,19 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section id="faq" className="relative overflow-hidden py-24">
+    <section
+      id="faq"
+      className="relative overflow-hidden py-24"
+    >
       {/* Background Blur */}
       <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-indigo-100 blur-3xl opacity-40" />
       <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-indigo-100 blur-3xl opacity-40" />
 
       <div className="container relative mx-auto px-4">
+
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
+
           <span className="inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700">
             FAQ
           </span>
@@ -58,15 +63,22 @@ export default function FAQ() {
           </h2>
 
           <p className="mt-5 text-lg text-slate-600">
-            Everything you need to know about ResumeAnalyzer, ATS scoring,
-            reports, and account limits.
+            Everything you need to know about ResumeAnalyzer,
+            ATS scoring, reports, and account limits.
           </p>
+
         </div>
 
         {/* FAQ Card */}
         <div className="mx-auto mt-16 max-w-4xl">
+
           <div className="rounded-3xl border bg-white p-4 shadow-sm md:p-8">
-            <Accordion type="single" collapsible className="w-full">
+
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full"
+            >
               {faqs.map((faq, index) => (
                 <AccordionItem
                   key={index}
@@ -83,12 +95,16 @@ export default function FAQ() {
                 </AccordionItem>
               ))}
             </Accordion>
+
           </div>
         </div>
 
         {/* Contact Support */}
         <div className="mt-12 text-center">
-          <p className="text-slate-600">Still have questions?</p>
+
+          <p className="text-slate-600">
+            Still have questions?
+          </p>
 
           <button
             className="
@@ -105,7 +121,9 @@ export default function FAQ() {
           >
             Contact Support
           </button>
+
         </div>
+
       </div>
     </section>
   );

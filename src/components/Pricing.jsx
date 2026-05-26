@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 export default function Pricing() {
   const plans = [
-    { name: "Free", price: "₹0", features: ["3 Analyses / Month"] },
-    { name: "Pro", price: "₹9", features: ["Unlimited Analyses"] },
-    { name: "Team", price: "₹29", features: ["Multi-user Workspace"] },
+    { name: 'Free', price: '$0', features: ['3 Analyses / Month'] },
+    { name: 'Pro', price: '$9', features: ['Unlimited Analyses'] },
+    { name: 'Team', price: '$29', features: ['Multi-user Workspace'] },
   ];
 
   return (
