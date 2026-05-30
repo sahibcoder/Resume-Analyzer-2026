@@ -2,7 +2,7 @@ import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Ajay Prajapati",
+    name: "Sahib",
     role: "Full Stack Developer",
     company: "Tech Startup",
     review:

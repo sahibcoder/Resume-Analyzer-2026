@@ -163,32 +163,3 @@ export default function HowItWorks() {
   );
 }
 
-// const steps = [
-//   'Upload Resume',
-//   'Paste Job Description',
-//   'AI Analysis',
-//   'Get Detailed Results',
-// ];
-
-// export default function HowItWorks() {
-//   return (
-//     <section id="how-it-works" className="bg-slate-50 py-20">
-//       <div className="container mx-auto px-4">
-//         <div className="text-center">
-//           <h2 className="text-3xl font-bold md:text-5xl">How It Works</h2>
-//         </div>
-
-//         <div className="mt-12 grid gap-6 md:grid-cols-4">
-//           {steps.map((step, index) => (
-//             <div key={step} className="rounded-3xl bg-white p-6 text-center shadow-sm">
-//               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-violet-100 font-bold text-violet-700">
-//                 {index + 1}
-//               </div>
-//               <h3 className="mt-4 font-semibold">{step}</h3>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }

@@ -161,37 +161,3 @@ export default function Features() {
 }
 
 
-// const features = [
-//   'ATS Score Analysis',
-//   'Missing Keywords Detection',
-//   'AI Suggestions',
-//   'Strengths & Weaknesses',
-//   'Section-wise Feedback',
-//   'PDF Report Download',
-// ];
-
-// export default function Features() {
-//   return (
-//     <section id="features" className="py-20">
-//       <div className="container mx-auto px-4">
-//         <div className="text-center">
-//           <h2 className="text-3xl font-bold md:text-5xl">Powerful Features</h2>
-//           <p className="mt-4 text-slate-600">
-//             Everything you need to optimize your resume.
-//           </p>
-//         </div>
-
-//         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-//           {features.map((feature) => (
-//             <div key={feature} className="rounded-3xl border p-6 shadow-sm">
-//               <h3 className="text-xl font-semibold">{feature}</h3>
-//               <p className="mt-2 text-slate-600">
-//                 Professional AI-powered analysis and recommendations.
-//               </p>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }

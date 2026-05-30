@@ -11,7 +11,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Features", href: "#features" },
     { name: "How It Works", href: "#how-it-works" },
-    { name: "Pricing", href: "#pricing" },
+    // { name: "Pricing", href: "#pricing" },
     { name: "FAQ", href: "#faq" },
   ];
 
@@ -46,7 +46,7 @@ export default function Navbar() {
         {/* Desktop Buttons */}
         <div className="hidden items-center gap-3 md:flex">
           <Link href="/login">
-            <Button variant="ghost" className="font-medium">
+            <Button className="bg-indigo-600 hover:bg-indigo-700">
               Login
             </Button>
           </Link>

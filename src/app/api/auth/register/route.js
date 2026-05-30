@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   try {
     const body = await req.json();
-    console.log("Received registration data:", body);
+    // console.log("Received registration data:", body);
     const { name, email, phone, password } = body;
 
     // Validate inputs
