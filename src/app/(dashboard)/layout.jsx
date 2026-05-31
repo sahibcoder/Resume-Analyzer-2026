@@ -26,7 +26,17 @@ export default async function DashboardLayout({ children }) {
         <header className="h-14 border-b bg-white flex items-center justify-between px-4">
           <div className="flex items-center gap-3">
             <SidebarTrigger />
-            <h1 className="text-lg font-semibold text-slate-800">Dashboard</h1>
+            <div>
+              <h1 className="text-xl font-bold text-slate-800">
+                {session?.user?.role === "ADMIN"
+                  ? "Admin Dashboard"
+                  : "User Dashboard"}
+              </h1>
+
+              <p className="text-sm text-slate-500">
+                Welcome back, {session?.user?.fullName || session?.user?.email}
+              </p>
+            </div>
           </div>
 
           <div className="flex items-center gap-4">

@@ -17,11 +17,11 @@ export const dashboardNav = {
       url: "/admin/users",
       icon: Users,
     },
-    {
-      title: "Settings",
-      url: "/admin/settings",
-      icon: Settings,
-    },
+    // {
+    //   title: "Settings",
+    //   url: "/admin/settings",
+    //   icon: Settings,
+    // },
   ],
 
   USER: [
