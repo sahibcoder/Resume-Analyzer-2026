@@ -14,32 +14,140 @@ export async function POST(request) {
     const resumeText = await extractResumeText(resume);
 
     const prompt = `
-You are an ATS Resume Analyzer.
+You are an expert ATS Resume Analyzer, Recruiter, Career Coach, and Hiring Manager.
 
-Return ONLY JSON.
+Analyze the resume against the provided Job Description.
+
+IMPORTANT RULES:
+- Return ONLY valid JSON.
+- Do not return markdown.
+- Do not wrap response in \`\`\`json.
+- All scores must be between 0 and 100.
+- Give realistic and professional feedback.
+
+Return JSON in this exact format:
 
 {
-  "atsScore":0,
-  "matchPercentage":0,
-  "summary":"",
-  "strengths":[],
-  "missingKeywords":[],
-  "improvements":[],
-  "finalVerdict":""
+  "atsScore": 0,
+  "matchPercentage": 0,
+
+  "resumeSummary": "",
+
+  "finalVerdict": "",
+
+  "resumeScoreGauge": {
+    "atsCompatibility": 0,
+    "resumeQuality": 0,
+    "recruiterReadability": 0
+  },
+
+  "skillMatchAnalysis": {
+    "matchedSkills": [
+      {
+        "skill": "",
+        "score": 0
+      }
+    ],
+    "missingSkills": [],
+    "recommendedSkills": [],
+    "skillGapPercentage": 0
+  },
+
+  "sectionWiseAnalysis": {
+    "professionalSummary": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    },
+    "skillsSection": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    },
+    "experienceSection": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    },
+    "projectsSection": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    },
+    "educationSection": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    }
+  },
+
+  "missingKeywordsAnalysis": {
+    "keywords": [],
+    "priorityKeywords": [],
+    "atsImpactLevel": "Low"
+  },
+
+  "resumeStrengths": [],
+
+  "resumeWeaknesses": [],
+
+  "improvementSuggestions": [],
+
+  "careerCoach": {
+    "overallAdvice": "",
+    "recommendedLearningPath": [],
+    "recommendedProjects": [],
+    "nextCareerSteps": []
+  },
+
+  "interviewQuestions": {
+    "technical": [],
+    "projectBased": [],
+    "behavioral": [],
+    "hr": []
+  }
 }
 
-Job Title:
+JOB TITLE:
 ${jobTitle}
 
-Company:
+COMPANY:
 ${companyName}
 
-Job Description:
+JOB DESCRIPTION:
 ${jobDescription}
 
-Resume:
+RESUME:
 ${resumeText}
 `;
+
+    //     const prompt = `
+    // You are an ATS Resume Analyzer.
+
+    // Return ONLY JSON.
+
+    // {
+    //   "atsScore":0,
+    //   "matchPercentage":0,
+    //   "summary":"",
+    //   "strengths":[],
+    //   "missingKeywords":[],
+    //   "improvements":[],
+    //   "finalVerdict":""
+    // }
+
+    // Job Title:
+    // ${jobTitle}
+
+    // Company:
+    // ${companyName}
+
+    // Job Description:
+    // ${jobDescription}
+
+    // Resume:
+    // ${resumeText}
+    // `;
 
     const aiResponse = await analyzeResume(prompt);
 
@@ -51,7 +159,7 @@ ${resumeText}
 
     const analysis = JSON.parse(cleanResponse);
 
-    console.log("Analysis:", analysis);
+    // console.log("Analysis:", analysis);
 
     return NextResponse.json({
       success: true,
