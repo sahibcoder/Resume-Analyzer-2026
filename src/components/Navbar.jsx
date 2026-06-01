@@ -33,27 +33,32 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-slate-600 transition-colors hover:text-indigo-600"
+              className="text-md font-medium text-slate-600 transition-colors hover:text-indigo-600"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* Desktop Buttons */}
         <div className="hidden items-center gap-3 md:flex">
           <Link href="/login">
-            <Button className="bg-indigo-600 hover:bg-indigo-700">
+            <Button  className="bg-indigo-600 hover:bg-indigo-700">
               Login
             </Button>
           </Link>
 
-          <Button className="bg-indigo-600 hover:bg-indigo-700">
+<Link href="/register">
+            <Button   className="bg-indigo-600 hover:bg-indigo-700">
+              Register
+            </Button>
+          </Link>
+          {/* <Button className="bg-indigo-600 hover:bg-indigo-700">
             Get Started
-          </Button>
+          </Button> */}
         </div>
 
         {/* Mobile Menu Button */}

@@ -29,7 +29,7 @@ export default function Hero() {
               actionable recommendations tailored to your target job.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            {/* <div className="mt-8 flex flex-wrap gap-4">
               <Button size="lg" className="h-12 px-8">
                 Analyze Resume Free
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -43,7 +43,7 @@ export default function Hero() {
                 <Play className="mr-2 h-4 w-4" />
                 Watch Demo
               </Button>
-            </div>
+            </div> */}
 
             <div className="mt-8 flex items-center gap-2 text-sm">
               <CheckCircle className="h-4 w-4 text-green-600" />

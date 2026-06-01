@@ -53,7 +53,7 @@ const LoginForm = () => {
         router.push("/user");
       }
     } catch (error) {
-      console.error("Login error:", error);
+      // console.error("Login error:", error);
       toast.error("Failed to login");
     } finally {
       setSubmitting(false);

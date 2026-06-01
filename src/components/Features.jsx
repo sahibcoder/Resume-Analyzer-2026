@@ -148,8 +148,8 @@ export default function Features() {
                     group-hover:opacity-100
                   "
                 >
-                  Learn More
-                  <ArrowUpRight className="ml-2 h-4 w-4" />
+                  
+                  {/* <ArrowUpRight className="ml-2 h-4 w-4" /> */}
                 </div>
               </div>
             );
