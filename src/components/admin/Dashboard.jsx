@@ -6,7 +6,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Dashboard = ({ users }) => {
-    console.log("users in dashboard component :", users);
   // DYNAMIC COUNTS
   const totalUsers = users.length;
 
@@ -95,35 +94,36 @@ const Dashboard = ({ users }) => {
         {/* TABLE */}
         <CardContent className="p-0">
           {/* TABLE HEADER */}
-          <div className="hidden grid-cols-3 bg-slate-100 px-6 py-4 text-sm font-semibold text-slate-600 md:grid">
+          <div className="hidden grid-cols-4 bg-slate-100 px-6 py-4 text-sm font-semibold text-slate-600 md:grid">
             <p>Name</p>
             <p>Email</p>
             <p>Role</p>
+            <p>Created At</p>
           </div>
 
           {/* USERS */}
           {users.map((user) => (
             <div
               key={user.id}
-              className="grid gap-4 border-t bg-white px-6 py-5 transition hover:bg-slate-50 md:grid-cols-3"
+              className="grid gap-4 border-t bg-white px-6 py-5 transition hover:bg-slate-50 md:grid-cols-4"
             >
               {/* NAME */}
               <div className="flex items-center gap-3">
-               <Avatar
-  className={`h-11 w-11 border shadow-md ${
-    user.role === "ADMIN"
-      ? "border-red-200 bg-linear-to-br from-red-500 to-orange-500"
-      : "border-indigo-200 bg-linear-to-br from-indigo-500 to-violet-600"
-  }`}
->
-  <AvatarFallback className="bg-transparent font-semibold text-white">
-    {user.fullName
-      ?.split(" ")
-      .map((name) => name.charAt(0))
-      .join("")
-      .toUpperCase()}
-  </AvatarFallback>
-</Avatar>
+                <Avatar
+                  className={`h-11 w-11 border shadow-md ${
+                    user.role === "ADMIN"
+                      ? "border-red-200 bg-linear-to-br from-red-500 to-orange-500"
+                      : "border-indigo-200 bg-linear-to-br from-indigo-500 to-violet-600"
+                  }`}
+                >
+                  <AvatarFallback className="bg-transparent font-semibold text-white">
+                    {user.fullName
+                      ?.split(" ")
+                      .map((name) => name.charAt(0))
+                      .join("")
+                      .toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
 
                 <div>
                   <p className="font-semibold text-slate-900">
@@ -152,10 +152,9 @@ const Dashboard = ({ users }) => {
                 </span>
               </div>
 
-              {/* Created AT */}
-           
-              <div className="flex items-center text-slate-600">
-               {format(user.createdAt, "dd MMM yyyy, hh:mm a")}
+              {/* CREATED AT */}
+              <div className="flex items-center text-sm text-slate-500">
+                {format(new Date(user.createdAt),  "dd MMM yyyy, hh:mm a")}
               </div>
             </div>
           ))}
