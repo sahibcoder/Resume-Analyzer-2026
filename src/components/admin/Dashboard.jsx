@@ -1,113 +1,168 @@
-import React from "react";
+"use client";
 
-import { Users, Shield, UserCheck } from "lucide-react";
+import { useState } from "react";
 import { format } from "date-fns";
+import { toast } from "sonner";
+
+import { Users, Shield, UserCheck, Trash2 } from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const Dashboard = ({ users }) => {
-  // DYNAMIC COUNTS
-  const totalUsers = users.length;
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-  const totalAdmins = users.filter((user) => user.role === "ADMIN").length;
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
-  const totalNormalUsers = users.filter((user) => user.role === "USER").length;
+export default function Dashboard({ users }) {
+  const [userList, setUserList] = useState(users);
+
+  const totalUsers = userList.length;
+
+  const totalAdmins = userList.filter((user) => user.role === "ADMIN").length;
+
+  const totalNormalUsers = userList.filter(
+    (user) => user.role === "USER",
+  ).length;
+
+  const handleRoleChange = async (userId, role) => {
+    try {
+      const response = await fetch(`/api/admin/users/${userId}/role`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ role }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      setUserList((prev) =>
+        prev.map((user) => (user.id === userId ? { ...user, role } : user)),
+      );
+
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleDelete = async (userId) => {
+    // const confirmed = window.confirm(
+    //   "Delete this user?"
+    // );
+
+    // if (!confirmed) return;
+
+    try {
+      const response = await fetch(`/api/admin/users/${userId}`, {
+        method: "DELETE",
+      });
+
+      const data = await response.json();
+      //   console.log("Delete response:", data);
+
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      setUserList((prev) => prev.filter((user) => user.id !== userId));
+
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 p-6">
       {/* HEADER */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Admin Dashboard</h1>
 
-        <p className="mt-2 text-slate-500">
-          Manage platform users and activity
-        </p>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+
+        <p className="text-slate-500">Manage platform users</p>
       </div>
 
       {/* STATS */}
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {/* TOTAL USERS */}
-        <Card className="rounded-3xl border-0 shadow-md">
+
+      <div className="grid gap-6 md:grid-cols-3">
+        <Card>
           <CardContent className="flex items-center justify-between p-6">
             <div>
-              <p className="text-sm text-slate-500">Total Users</p>
+              <p>Total Users</p>
 
-              <h2 className="mt-2 text-4xl font-bold text-slate-900">
-                {totalUsers}
-              </h2>
+              <h2 className="text-4xl font-bold">{totalUsers}</h2>
             </div>
 
-            <div className="rounded-2xl bg-indigo-100 p-4">
-              <Users className="h-7 w-7 text-indigo-600" />
-            </div>
+            <Users />
           </CardContent>
         </Card>
 
-        {/* ADMINS */}
-        <Card className="rounded-3xl border-0 shadow-md">
+        <Card>
           <CardContent className="flex items-center justify-between p-6">
             <div>
-              <p className="text-sm text-slate-500">Admins</p>
+              <p>Admins</p>
 
-              <h2 className="mt-2 text-4xl font-bold text-slate-900">
-                {totalAdmins}
-              </h2>
+              <h2 className="text-4xl font-bold">{totalAdmins}</h2>
             </div>
 
-            <div className="rounded-2xl bg-red-100 p-4">
-              <Shield className="h-7 w-7 text-red-600" />
-            </div>
+            <Shield />
           </CardContent>
         </Card>
 
-        {/* NORMAL USERS */}
-        <Card className="rounded-3xl border-0 shadow-md">
+        <Card>
           <CardContent className="flex items-center justify-between p-6">
             <div>
-              <p className="text-sm text-slate-500">Normal Users</p>
+              <p>Users</p>
 
-              <h2 className="mt-2 text-4xl font-bold text-slate-900">
-                {totalNormalUsers}
-              </h2>
+              <h2 className="text-4xl font-bold">{totalNormalUsers}</h2>
             </div>
 
-            <div className="rounded-2xl bg-emerald-100 p-4">
-              <UserCheck className="h-7 w-7 text-emerald-600" />
-            </div>
+            <UserCheck />
           </CardContent>
         </Card>
       </div>
 
-      {/* USERS TABLE */}
-      <Card className="mt-8 rounded-3xl border-0 shadow-md overflow-hidden">
-        {/* HEADER */}
-        <div className="border-b bg-white p-6">
-          <h2 className="text-2xl font-bold text-slate-900">
-            Registered Users
-          </h2>
+      {/* TABLE */}
 
-          <p className="mt-1 text-sm text-slate-500">
-            All registered platform users
-          </p>
-        </div>
-
-        {/* TABLE */}
+      <Card className="mt-8">
         <CardContent className="p-0">
-          {/* TABLE HEADER */}
-          <div className="hidden grid-cols-4 bg-slate-100 px-6 py-4 text-sm font-semibold text-slate-600 md:grid">
+          <div className="hidden md:grid md:grid-cols-5 bg-slate-100 p-4 font-semibold">
             <p>Name</p>
             <p>Email</p>
             <p>Role</p>
-            <p>Created At</p>
+            <p>Created</p>
+            <p>Action</p>
           </div>
 
-          {/* USERS */}
-          {users.map((user) => (
+          {userList.map((user) => (
             <div
               key={user.id}
-              className="grid gap-4 border-t bg-white px-6 py-5 transition hover:bg-slate-50 md:grid-cols-4"
+              className="grid gap-4 border-t p-4 md:grid-cols-5"
             >
               {/* NAME */}
+
               <div className="flex items-center gap-3">
                 <Avatar
                   className={`h-11 w-11 border shadow-md ${
@@ -125,36 +180,75 @@ const Dashboard = ({ users }) => {
                   </AvatarFallback>
                 </Avatar>
 
-                <div>
-                  <p className="font-semibold text-slate-900">
-                    {user.fullName}
-                  </p>
-
-                  <p className="text-xs text-slate-500">Platform Member</p>
-                </div>
+                <span>{user.fullName}</span>
               </div>
 
               {/* EMAIL */}
-              <div className="flex items-center text-slate-600">
-                {user.email}
-              </div>
+
+              <div className="flex items-center">{user.email}</div>
 
               {/* ROLE */}
-              <div className="flex items-center">
-                <span
-                  className={`rounded-full px-4 py-1 text-xs font-semibold ${
-                    user.role === "ADMIN"
-                      ? "bg-red-100 text-red-600"
-                      : "bg-indigo-100 text-indigo-600"
-                  }`}
+
+              <div>
+                <Select
+                  value={user.role}
+                  onValueChange={(value) => handleRoleChange(user.id, value)}
                 >
-                  {user.role}
-                </span>
+                  <SelectTrigger
+                    className={`w-full font-semibold cursor-pointer ${
+                      user.role === "ADMIN"
+                        ? "bg-red-100 text-red-600 border-red-200"
+                        : "bg-indigo-100 text-indigo-600 border-indigo-200"
+                    }`}
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="ADMIN">Admin</SelectItem>
+
+                      <SelectItem value="USER">User</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              {/* DATE */}
+
+              <div className="flex items-center">
+                {format(new Date(user.createdAt), "dd MMM yyyy, hh:mm a")}
               </div>
 
-              {/* CREATED AT */}
-              <div className="flex items-center text-sm text-slate-500">
-                {format(new Date(user.createdAt),  "dd MMM yyyy, hh:mm a")}
+              {/* DELETE */}
+
+              <div>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <button className="rounded-lg bg-red-100 p-2 text-red-600 hover:bg-red-200 cursor-pointer">
+                      <Trash2 size={18} />
+                    </button>
+                  </AlertDialogTrigger>
+
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Delete User?</AlertDialogTitle>
+
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently
+                        delete
+                        <span className="font-semibold"> {user.fullName}</span>.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+
+                      <AlertDialogAction onClick={() => handleDelete(user.id)}>
+                        Delete
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             </div>
           ))}
@@ -162,6 +256,4 @@ const Dashboard = ({ users }) => {
       </Card>
     </div>
   );
-};
-
-export default Dashboard;
+}
