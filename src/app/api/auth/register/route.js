@@ -8,10 +8,10 @@ export async function POST(req) {
   try {
     const body = await req.json();
     // console.log("Received registration data:", body);
-    const { name, email, phone, password } = body;
+    const { name, email, gender, password } = body;
 
     // Validate inputs
-    if (!name || !email || !password) {
+    if (!name || !email || !gender || !password) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 },
@@ -37,10 +37,10 @@ export async function POST(req) {
     // Create user
     const user = await prisma.user.create({
       data: {
-        fullName:name,
+        fullName: name,
         email,
-        phone,
         password: hashedPassword,
+        gender,
         role: "USER",
       },
     });
@@ -51,7 +51,7 @@ export async function POST(req) {
       { status: 201 },
     );
   } catch (err) {
-    // console.error(err);
+    console.error(err);
     return NextResponse.json(
       { error: "Something went wrong." },
       { status: 500 },

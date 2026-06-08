@@ -11,7 +11,7 @@ export default function AuthLayout({ children }) {
           <div className="relative hidden md:flex items-center justify-center bg-gradient-to-br from-violet-600 to-indigo-700 p-10">
             <div className="relative w-full h-[650px]">
               <Image
-                src="/resume.png"
+                src="/resume1.png"
                 alt="Resume Analyzer"
                 fill
                 priority
@@ -27,12 +27,12 @@ export default function AuthLayout({ children }) {
             <div className="w-full max-w-md">
               {/* Logo */}
               <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900">
+                <h1 className="text-3xl font-bold text-gray-900 text-center">
                   Resume
                   <span className="text-violet-600 ms-2">Analyzer</span>
                 </h1>
 
-                <p className="mt-2 text-sm text-gray-500">
+                <p className="text-center text-lg font-semibold text-gray-600 mt-2">
                   Analyze your resume, improve ATS score and get AI-powered
                   suggestions instantly.
                 </p>

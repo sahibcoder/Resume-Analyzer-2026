@@ -1,49 +1,58 @@
 "use client";
 
-"use client";
-
-
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useRouter } from "next/navigation";
 import { registerSchema } from "@/schemas/auth.schema";
-import {  Loader, Save, EyeIcon, EyeOffIcon } from "lucide-react";
+import { Loader, Save, EyeIcon, EyeOffIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Link from "next/link";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 const RegisterForm = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const validationSchema = registerSchema;
 
   const initialValues = {
     name: "",
     email: "",
     password: "",
+    gender: "",
   };
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = async (
+    values,
+    { setSubmitting, resetForm }
+  ) => {
     try {
-      const body = { ...values };
-
       const res = await fetch("/api/auth/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
       });
 
       const data = await res.json();
-      // console.log("data message :", data)
 
       if (!res.ok) {
         toast.error(data.error || "Failed to create user.");
       } else {
-        toast.success(data.message || "User Register successfully.");
+        toast.success(data.message || "User registered successfully.");
         resetForm();
-        router.push('/login');
+        router.push("/login");
       }
     } catch (error) {
       toast.error("Failed to create user.");
@@ -56,26 +65,36 @@ const RegisterForm = () => {
     <div className="bg-white rounded-md p-6">
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={registerSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
-          <Form className="flex  flex-col gap-3">
-            {/* Register*/}
-            <div className="sm:col-span-2">
-              <h3 className="text-lg font-semibold text-slate-700">Register</h3>
+        {({
+          isSubmitting,
+          values,
+          setFieldValue,
+        }) => (
+          <Form className="flex flex-col gap-3">
+            {/* Heading */}
+            <div>
+              <h3 className="text-lg font-semibold text-slate-700">
+                Register
+              </h3>
             </div>
+
             {/* Full Name */}
             <div>
               <Label htmlFor="name" className="mb-2 text-slate-700">
-                Full Name<span className="text-rose-500">*</span>
+                Full Name
+                <span className="text-rose-500">*</span>
               </Label>
+
               <Field
                 as={Input}
                 id="name"
                 name="name"
                 placeholder="Enter full name"
               />
+
               <ErrorMessage
                 name="name"
                 component="div"
@@ -86,14 +105,17 @@ const RegisterForm = () => {
             {/* Email */}
             <div>
               <Label htmlFor="email" className="mb-2 text-slate-700">
-                Email<span className="text-rose-500">*</span>
+                Email
+                <span className="text-rose-500">*</span>
               </Label>
+
               <Field
                 as={Input}
                 id="email"
                 name="email"
                 placeholder="email@example.com"
               />
+
               <ErrorMessage
                 name="email"
                 component="div"
@@ -104,20 +126,25 @@ const RegisterForm = () => {
             {/* Password */}
             <div>
               <Label htmlFor="password" className="mb-2 text-slate-700">
-                Password<span className="text-rose-500">*</span>
+                Password
+                <span className="text-rose-500">*</span>
               </Label>
+
               <div className="relative">
                 <Field
                   as={Input}
                   type={showPassword ? "text" : "password"}
+                  id="password"
                   name="password"
                   placeholder="Password"
                 />
+
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() =>
+                    setShowPassword(!showPassword)
+                  }
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
                 >
                   {showPassword ? (
                     <EyeOffIcon className="w-4 h-4" />
@@ -126,6 +153,7 @@ const RegisterForm = () => {
                   )}
                 </button>
               </div>
+
               <ErrorMessage
                 name="password"
                 component="div"
@@ -133,8 +161,51 @@ const RegisterForm = () => {
               />
             </div>
 
+            {/* Gender */}
+            <div>
+              <Label className="mb-2 text-slate-700">
+                Gender
+                <span className="text-rose-500">*</span>
+              </Label>
+
+              <Select
+                value={values.gender}
+                onValueChange={(value) =>
+                  setFieldValue("gender", value)
+                }
+              >
+                <SelectTrigger className="w-full cursor-pointer">
+                  <SelectValue placeholder="Select gender" />
+                </SelectTrigger>
+
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Gender</SelectLabel>
+
+                    <SelectItem value="Male">
+                      Male
+                    </SelectItem>
+
+                    <SelectItem value="Female">
+                      Female
+                    </SelectItem>
+
+                    <SelectItem value="Other">
+                      Other
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+
+              <ErrorMessage
+                name="gender"
+                component="div"
+                className="text-xs text-red-500 mt-1"
+              />
+            </div>
+
             {/* Submit Button */}
-            <div className="sm:col-span-4 text-right mt-2">
+            <div className="text-right mt-2">
               <Button
                 type="submit"
                 disabled={isSubmitting}
@@ -153,10 +224,14 @@ const RegisterForm = () => {
                 )}
               </Button>
             </div>
-               {/* Login Link */}
+
+            {/* Login Link */}
             <p className="text-sm text-gray-600 mt-4 text-center">
-             Already have an account? {" "}
-              <Link href="/login" className="text-cyan-700 hover:underline">
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="text-cyan-700 hover:underline"
+              >
                 Login
               </Link>
             </p>

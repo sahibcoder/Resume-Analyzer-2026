@@ -198,9 +198,9 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <Button className="h-12 rounded-2xl bg-indigo-600 px-6 hover:bg-indigo-700">
+        {/* <Button className="h-12 rounded-2xl bg-indigo-600 px-6 hover:bg-indigo-700">
           Start Mock Interview
-        </Button>
+        </Button> */}
       </div>
 
       <CardContent className="p-6">

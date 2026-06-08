@@ -40,6 +40,7 @@ Neon Database connect the connection String only
 Prisma Command
 npx prisma generate
 npx prisma migrate dev --name init
+npx prisma migrate dev --name add_gender_field
 
 
 Project build command
