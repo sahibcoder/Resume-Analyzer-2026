@@ -80,7 +80,7 @@ export default function Dashboard({ users }) {
       });
 
       const data = await response.json();
-      //   console.log("Delete response:", data);
+      // console.log("Delete response:", data);
 
       if (!response.ok) {
         throw new Error(data.message);
@@ -145,30 +145,56 @@ export default function Dashboard({ users }) {
       </div>
 
       {/* TABLE */}
-
-      <Card className="mt-8">
+      <Card className="mt-8 overflow-hidden rounded-3xl border-0 shadow-lg">
         <CardContent className="p-0">
-          <div className="hidden md:grid md:grid-cols-5 bg-slate-100 p-4 font-semibold">
+          {/* Table Header */}
+          <div
+            className="
+        hidden md:grid
+        md:grid-cols-[1.5fr_2fr_1fr_1fr_1.5fr_80px]
+        items-center
+        gap-4
+        bg-slate-100
+        px-6 py-4
+        font-semibold
+        text-slate-700
+      "
+          >
             <p>Name</p>
+
             <p>Email</p>
+
+            <p>Gender</p>
+
             <p>Role</p>
+
             <p>Created</p>
+
             <p>Action</p>
           </div>
 
+          {/* Table Body */}
           {userList.map((user) => (
             <div
               key={user.id}
-              className="grid gap-4 border-t p-4 md:grid-cols-5"
+              className="
+          grid gap-4 border-t
+          px-6 py-5
+          md:grid-cols-[1.5fr_2fr_1fr_1fr_1.5fr_80px]
+          items-center
+          transition-all duration-300
+          hover:bg-slate-50
+        "
             >
               {/* NAME */}
-
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
                 <Avatar
-                  className={`h-11 w-11 border shadow-md ${
+                  className={`h-11 w-11 shrink-0 border shadow-md ${
                     user.role === "ADMIN"
                       ? "border-red-200 bg-linear-to-br from-red-500 to-orange-500"
-                      : "border-indigo-200 bg-linear-to-br from-indigo-500 to-violet-600"
+                      : user.gender === "Male"
+                        ? "border-blue-200 bg-linear-to-br from-blue-500 to-cyan-500"
+                        : "border-pink-200 bg-linear-to-br from-pink-500 to-fuchsia-500"
                   }`}
                 >
                   <AvatarFallback className="bg-transparent font-semibold text-white">
@@ -180,15 +206,55 @@ export default function Dashboard({ users }) {
                   </AvatarFallback>
                 </Avatar>
 
-                <span>{user.fullName}</span>
+                <div className="min-w-0">
+                  <p
+                    className={`
+        wrap-break-words whitespace-normal
+        text-sm font-semibold
+        ${
+          user.role === "ADMIN"
+            ? "text-red-700"
+            : user.gender === "Male"
+              ? "text-blue-700"
+              : "text-pink-700"
+        }
+      `}
+                  >
+                    {user.fullName}
+                  </p>
+                </div>
               </div>
 
               {/* EMAIL */}
+              <div
+                className={`
+    min-w-0 break-all text-sm font-medium
+    ${
+      user.role === "ADMIN"
+        ? "text-red-600"
+        : user.gender === "Male"
+          ? "text-blue-600"
+          : "text-pink-600"
+    }
+  `}
+              >
+                {user.email}
+              </div>
 
-              <div className="flex items-center">{user.email}</div>
+              {/* GENDER */}
+              <div>
+                <span
+                  className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                    user.gender === "Male"
+                      ? "bg-blue-100 text-blue-700 border border-blue-200"
+                      : "bg-pink-100 text-pink-700 border border-pink-200"
+                  }`}
+                >
+                  {user.gender}
+                </span>
+              </div>
 
               {/* ROLE */}
-
               <div>
                 <Select
                   value={user.role}
@@ -198,7 +264,9 @@ export default function Dashboard({ users }) {
                     className={`w-full font-semibold cursor-pointer ${
                       user.role === "ADMIN"
                         ? "bg-red-100 text-red-600 border-red-200"
-                        : "bg-indigo-100 text-indigo-600 border-indigo-200"
+                        : user.gender === "Male"
+                          ? "bg-blue-100 text-blue-600 border-blue-200"
+                          : "bg-pink-100 text-pink-600 border-pink-200"
                     }`}
                   >
                     <SelectValue />
@@ -213,18 +281,31 @@ export default function Dashboard({ users }) {
                   </SelectContent>
                 </Select>
               </div>
-              {/* DATE */}
 
-              <div className="flex items-center">
+              {/* DATE */}
+              <div
+                className="
+            text-sm text-slate-600
+            wrap-break-words
+          "
+              >
                 {format(new Date(user.createdAt), "dd MMM yyyy, hh:mm a")}
               </div>
 
               {/* DELETE */}
-
-              <div>
+              <div className="flex justify-start md:justify-center">
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <button className="rounded-lg bg-red-100 p-2 text-red-600 hover:bg-red-200 cursor-pointer">
+                    <button
+                      className="
+                  rounded-xl bg-red-100
+                  p-2 text-red-600
+                  transition-all duration-300
+                  hover:bg-red-200
+                  hover:scale-105
+                  cursor-pointer
+                "
+                    >
                       <Trash2 size={18} />
                     </button>
                   </AlertDialogTrigger>

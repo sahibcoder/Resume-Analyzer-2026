@@ -17,6 +17,7 @@ const users = await prisma.user.findMany({
       fullName: true,
       email: true,
       role: true,
+      gender: true,
       createdAt: true,
     },
   });

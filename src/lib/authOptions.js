@@ -33,6 +33,7 @@ export const authOptions = {
           email: user.email,
           fullName: user.fullName,
           role: user.role,
+          gender: user.gender,
         };
       },
     }),
@@ -44,6 +45,7 @@ export const authOptions = {
         token.id = user.id;
         token.role = user.role;
         token.fullName = user.fullName;
+        token.gender = user.gender;
       }
       return token;
     },
@@ -52,6 +54,7 @@ export const authOptions = {
       session.user.id = token.id;
       session.user.role = token.role;
       session.user.fullName = token.fullName;
+      session.user.gender = token.gender;
       return session;
     },
   },
