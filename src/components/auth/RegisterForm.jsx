@@ -10,16 +10,9 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Link from "next/link";
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { FaMale, FaFemale } from "react-icons/fa";
+import Image from "next/image";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -32,10 +25,7 @@ const RegisterForm = () => {
     gender: "",
   };
 
-  const handleSubmit = async (
-    values,
-    { setSubmitting, resetForm }
-  ) => {
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -68,17 +58,97 @@ const RegisterForm = () => {
         validationSchema={registerSchema}
         onSubmit={handleSubmit}
       >
-        {({
-          isSubmitting,
-          values,
-          setFieldValue,
-        }) => (
+        {({ isSubmitting, values, setFieldValue }) => (
           <Form className="flex flex-col gap-3">
             {/* Heading */}
             <div>
-              <h3 className="text-lg font-semibold text-slate-700">
-                Register
-              </h3>
+              <h3 className="text-lg font-semibold text-slate-700">Register</h3>
+            </div>
+
+            {/* Gender */}
+            <div>
+              <Label className="mb-3 block text-slate-700">
+                Gender
+                <span className="text-rose-500">*</span>
+              </Label>
+
+              <RadioGroup
+                value={values.gender}
+                onValueChange={(value) => setFieldValue("gender", value)}
+                className="grid grid-cols-2 gap-4"
+              >
+                {/* Male */}
+                <div>
+                  <RadioGroupItem
+                    value="Male"
+                    id="male"
+                    className="peer sr-only"
+                  />
+
+                  <Label
+                    htmlFor="male"
+                    className="
+          flex flex-col items-center justify-center
+          rounded-2xl border-2 p-5 cursor-pointer
+          transition-all duration-200
+          hover:border-blue-400
+          peer-data-[state=checked]:border-blue-500
+          peer-data-[state=checked]:bg-blue-50
+        "
+                  >
+                    <Image
+                      src="/boy.png"
+                      alt="boy"
+                       priority
+                     width={50}
+                     height={50}
+                      draggable={false}
+                     
+                    />
+
+                    <span className="font-semibold text-blue-600">Boy</span>
+                  </Label>
+                </div>
+
+                {/* Female */}
+                <div>
+                  <RadioGroupItem
+                    value="Female"
+                    id="female"
+                    className="peer sr-only"
+                  />
+
+                  <Label
+                    htmlFor="female"
+                    className="
+          flex flex-col items-center justify-center
+          rounded-2xl border-2 p-5 cursor-pointer
+          transition-all duration-200
+          hover:border-pink-400
+          peer-data-[state=checked]:border-pink-500
+          peer-data-[state=checked]:bg-pink-50
+        "
+                  >
+                    <Image
+                      src="/girl.png"
+                      alt="girl"
+                      priority
+                     width={50}
+                     height={50}
+                      draggable={false}
+                      
+                    />
+
+                    <span className="font-semibold text-pink-600">Girl</span>
+                  </Label>
+                </div>
+              </RadioGroup>
+
+              <ErrorMessage
+                name="gender"
+                component="div"
+                className="text-xs text-red-500 mt-1"
+              />
             </div>
 
             {/* Full Name */}
@@ -141,9 +211,7 @@ const RegisterForm = () => {
 
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowPassword(!showPassword)
-                  }
+                  onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
                 >
                   {showPassword ? (
@@ -156,49 +224,6 @@ const RegisterForm = () => {
 
               <ErrorMessage
                 name="password"
-                component="div"
-                className="text-xs text-red-500 mt-1"
-              />
-            </div>
-
-            {/* Gender */}
-            <div>
-              <Label className="mb-2 text-slate-700">
-                Gender
-                <span className="text-rose-500">*</span>
-              </Label>
-
-              <Select
-                value={values.gender}
-                onValueChange={(value) =>
-                  setFieldValue("gender", value)
-                }
-              >
-                <SelectTrigger className="w-full cursor-pointer">
-                  <SelectValue placeholder="Select gender" />
-                </SelectTrigger>
-
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Gender</SelectLabel>
-
-                    <SelectItem value="Male">
-                      Male
-                    </SelectItem>
-
-                    <SelectItem value="Female">
-                      Female
-                    </SelectItem>
-
-                    <SelectItem value="Other">
-                      Other
-                    </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-
-              <ErrorMessage
-                name="gender"
                 component="div"
                 className="text-xs text-red-500 mt-1"
               />
@@ -228,10 +253,7 @@ const RegisterForm = () => {
             {/* Login Link */}
             <p className="text-sm text-gray-600 mt-4 text-center">
               Already have an account?{" "}
-              <Link
-                href="/login"
-                className="text-cyan-700 hover:underline"
-              >
+              <Link href="/login" className="text-cyan-700 hover:underline">
                 Login
               </Link>
             </p>
