@@ -48,3 +48,10 @@ npm run build
 
 Full Stack Web Developer
 Results-driven Full Stack Web Developer with experience in building responsive and scalable web applications using JavaScript, React.js, Next.js, Node.js, Express.js, MongoDB, and PostgreSQL. Skilled in front-end and back-end development, REST API integration, authentication, database management, and deploying high-performance applications with a focus on clean code and user experience.
+
+
+1. ATS Score
+2. Resume Quality
+3. Recruiter Readability
+4. Missing Skills
+5. Missing Keywords

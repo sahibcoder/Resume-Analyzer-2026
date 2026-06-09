@@ -61,8 +61,10 @@ const RegisterForm = () => {
         {({ isSubmitting, values, setFieldValue }) => (
           <Form className="flex flex-col gap-3">
             {/* Heading */}
-            <div>
-              <h3 className="text-lg font-semibold text-slate-700">Register</h3>
+            <div className="flex justify-center items-center">
+              <h3 className="text-lg font-semibold text-slate-700">
+                Register
+              </h3>
             </div>
 
             {/* Gender */}

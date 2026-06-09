@@ -131,6 +131,23 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ResumeAnalysisScalarFieldEnum = {
+  id: 'id',
+  atsScore: 'atsScore',
+  matchPercentage: 'matchPercentage',
+  resumeQuality: 'resumeQuality',
+  recruiterReadability: 'recruiterReadability',
+  missingSkills: 'missingSkills',
+  missingKeywords: 'missingKeywords',
+  finalVerdict: 'finalVerdict',
+  fileUrl: 'fileUrl',
+  fileName: 'fileName',
+  fileSize: 'fileSize',
+  fileType: 'fileType',
+  createdAt: 'createdAt',
+  userId: 'userId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -140,13 +157,19 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
   USER: 'USER'
 };
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  ResumeAnalysis: 'ResumeAnalysis'
 };
 
 /**

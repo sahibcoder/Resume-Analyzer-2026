@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model ResumeAnalysis
+ * 
+ */
+export type ResumeAnalysis = $Result.DefaultSelection<Prisma.$ResumeAnalysisPayload>
 
 /**
  * Enums
@@ -166,6 +171,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.resumeAnalysis`: Exposes CRUD operations for the **ResumeAnalysis** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ResumeAnalyses
+    * const resumeAnalyses = await prisma.resumeAnalysis.findMany()
+    * ```
+    */
+  get resumeAnalysis(): Prisma.ResumeAnalysisDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -600,7 +615,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    User: 'User'
+    User: 'User',
+    ResumeAnalysis: 'ResumeAnalysis'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -616,7 +632,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "user" | "resumeAnalysis"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -691,6 +707,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      ResumeAnalysis: {
+        payload: Prisma.$ResumeAnalysisPayload<ExtArgs>
+        fields: Prisma.ResumeAnalysisFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ResumeAnalysisFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ResumeAnalysisFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload>
+          }
+          findFirst: {
+            args: Prisma.ResumeAnalysisFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ResumeAnalysisFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload>
+          }
+          findMany: {
+            args: Prisma.ResumeAnalysisFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload>[]
+          }
+          create: {
+            args: Prisma.ResumeAnalysisCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload>
+          }
+          createMany: {
+            args: Prisma.ResumeAnalysisCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ResumeAnalysisCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload>[]
+          }
+          delete: {
+            args: Prisma.ResumeAnalysisDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload>
+          }
+          update: {
+            args: Prisma.ResumeAnalysisUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload>
+          }
+          deleteMany: {
+            args: Prisma.ResumeAnalysisDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ResumeAnalysisUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ResumeAnalysisUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload>[]
+          }
+          upsert: {
+            args: Prisma.ResumeAnalysisUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResumeAnalysisPayload>
+          }
+          aggregate: {
+            args: Prisma.ResumeAnalysisAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateResumeAnalysis>
+          }
+          groupBy: {
+            args: Prisma.ResumeAnalysisGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ResumeAnalysisGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ResumeAnalysisCountArgs<ExtArgs>
+            result: $Utils.Optional<ResumeAnalysisCountAggregateOutputType> | number
           }
         }
       }
@@ -803,6 +893,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    resumeAnalysis?: ResumeAnalysisOmit
   }
 
   /* Types for Logging */
@@ -877,6 +968,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    resumeAnalyses: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    resumeAnalyses?: boolean | UserCountOutputTypeCountResumeAnalysesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountResumeAnalysesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResumeAnalysisWhereInput
+  }
 
 
   /**
@@ -1071,6 +1192,8 @@ export namespace Prisma {
     role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    resumeAnalyses?: boolean | User$resumeAnalysesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1107,10 +1230,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "password" | "gender" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    resumeAnalyses?: boolean | User$resumeAnalysesArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      resumeAnalyses: Prisma.$ResumeAnalysisPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       fullName: string
@@ -1514,6 +1645,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    resumeAnalyses<T extends User$resumeAnalysesArgs<ExtArgs> = {}>(args?: Subset<T, User$resumeAnalysesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1568,6 +1700,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1586,6 +1722,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1603,6 +1743,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1652,6 +1796,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1699,6 +1847,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which Users to fetch.
      */
@@ -1748,6 +1900,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The data needed to create a User.
      */
     data: XOR<UserCreateInput, UserUncheckedCreateInput>
@@ -1795,6 +1951,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1862,6 +2022,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1888,6 +2052,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -1908,6 +2076,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.resumeAnalyses
+   */
+  export type User$resumeAnalysesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    where?: ResumeAnalysisWhereInput
+    orderBy?: ResumeAnalysisOrderByWithRelationInput | ResumeAnalysisOrderByWithRelationInput[]
+    cursor?: ResumeAnalysisWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ResumeAnalysisScalarFieldEnum | ResumeAnalysisScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1919,6 +2111,1232 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ResumeAnalysis
+   */
+
+  export type AggregateResumeAnalysis = {
+    _count: ResumeAnalysisCountAggregateOutputType | null
+    _avg: ResumeAnalysisAvgAggregateOutputType | null
+    _sum: ResumeAnalysisSumAggregateOutputType | null
+    _min: ResumeAnalysisMinAggregateOutputType | null
+    _max: ResumeAnalysisMaxAggregateOutputType | null
+  }
+
+  export type ResumeAnalysisAvgAggregateOutputType = {
+    atsScore: number | null
+    matchPercentage: number | null
+    resumeQuality: number | null
+    recruiterReadability: number | null
+    fileSize: number | null
+  }
+
+  export type ResumeAnalysisSumAggregateOutputType = {
+    atsScore: number | null
+    matchPercentage: number | null
+    resumeQuality: number | null
+    recruiterReadability: number | null
+    fileSize: number | null
+  }
+
+  export type ResumeAnalysisMinAggregateOutputType = {
+    id: string | null
+    atsScore: number | null
+    matchPercentage: number | null
+    resumeQuality: number | null
+    recruiterReadability: number | null
+    finalVerdict: string | null
+    fileUrl: string | null
+    fileName: string | null
+    fileSize: number | null
+    fileType: string | null
+    createdAt: Date | null
+    userId: string | null
+  }
+
+  export type ResumeAnalysisMaxAggregateOutputType = {
+    id: string | null
+    atsScore: number | null
+    matchPercentage: number | null
+    resumeQuality: number | null
+    recruiterReadability: number | null
+    finalVerdict: string | null
+    fileUrl: string | null
+    fileName: string | null
+    fileSize: number | null
+    fileType: string | null
+    createdAt: Date | null
+    userId: string | null
+  }
+
+  export type ResumeAnalysisCountAggregateOutputType = {
+    id: number
+    atsScore: number
+    matchPercentage: number
+    resumeQuality: number
+    recruiterReadability: number
+    missingSkills: number
+    missingKeywords: number
+    finalVerdict: number
+    fileUrl: number
+    fileName: number
+    fileSize: number
+    fileType: number
+    createdAt: number
+    userId: number
+    _all: number
+  }
+
+
+  export type ResumeAnalysisAvgAggregateInputType = {
+    atsScore?: true
+    matchPercentage?: true
+    resumeQuality?: true
+    recruiterReadability?: true
+    fileSize?: true
+  }
+
+  export type ResumeAnalysisSumAggregateInputType = {
+    atsScore?: true
+    matchPercentage?: true
+    resumeQuality?: true
+    recruiterReadability?: true
+    fileSize?: true
+  }
+
+  export type ResumeAnalysisMinAggregateInputType = {
+    id?: true
+    atsScore?: true
+    matchPercentage?: true
+    resumeQuality?: true
+    recruiterReadability?: true
+    finalVerdict?: true
+    fileUrl?: true
+    fileName?: true
+    fileSize?: true
+    fileType?: true
+    createdAt?: true
+    userId?: true
+  }
+
+  export type ResumeAnalysisMaxAggregateInputType = {
+    id?: true
+    atsScore?: true
+    matchPercentage?: true
+    resumeQuality?: true
+    recruiterReadability?: true
+    finalVerdict?: true
+    fileUrl?: true
+    fileName?: true
+    fileSize?: true
+    fileType?: true
+    createdAt?: true
+    userId?: true
+  }
+
+  export type ResumeAnalysisCountAggregateInputType = {
+    id?: true
+    atsScore?: true
+    matchPercentage?: true
+    resumeQuality?: true
+    recruiterReadability?: true
+    missingSkills?: true
+    missingKeywords?: true
+    finalVerdict?: true
+    fileUrl?: true
+    fileName?: true
+    fileSize?: true
+    fileType?: true
+    createdAt?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type ResumeAnalysisAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResumeAnalysis to aggregate.
+     */
+    where?: ResumeAnalysisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResumeAnalyses to fetch.
+     */
+    orderBy?: ResumeAnalysisOrderByWithRelationInput | ResumeAnalysisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ResumeAnalysisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResumeAnalyses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResumeAnalyses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ResumeAnalyses
+    **/
+    _count?: true | ResumeAnalysisCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ResumeAnalysisAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ResumeAnalysisSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ResumeAnalysisMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ResumeAnalysisMaxAggregateInputType
+  }
+
+  export type GetResumeAnalysisAggregateType<T extends ResumeAnalysisAggregateArgs> = {
+        [P in keyof T & keyof AggregateResumeAnalysis]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateResumeAnalysis[P]>
+      : GetScalarType<T[P], AggregateResumeAnalysis[P]>
+  }
+
+
+
+
+  export type ResumeAnalysisGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResumeAnalysisWhereInput
+    orderBy?: ResumeAnalysisOrderByWithAggregationInput | ResumeAnalysisOrderByWithAggregationInput[]
+    by: ResumeAnalysisScalarFieldEnum[] | ResumeAnalysisScalarFieldEnum
+    having?: ResumeAnalysisScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ResumeAnalysisCountAggregateInputType | true
+    _avg?: ResumeAnalysisAvgAggregateInputType
+    _sum?: ResumeAnalysisSumAggregateInputType
+    _min?: ResumeAnalysisMinAggregateInputType
+    _max?: ResumeAnalysisMaxAggregateInputType
+  }
+
+  export type ResumeAnalysisGroupByOutputType = {
+    id: string
+    atsScore: number
+    matchPercentage: number
+    resumeQuality: number
+    recruiterReadability: number
+    missingSkills: string[]
+    missingKeywords: string[]
+    finalVerdict: string | null
+    fileUrl: string | null
+    fileName: string | null
+    fileSize: number | null
+    fileType: string | null
+    createdAt: Date
+    userId: string
+    _count: ResumeAnalysisCountAggregateOutputType | null
+    _avg: ResumeAnalysisAvgAggregateOutputType | null
+    _sum: ResumeAnalysisSumAggregateOutputType | null
+    _min: ResumeAnalysisMinAggregateOutputType | null
+    _max: ResumeAnalysisMaxAggregateOutputType | null
+  }
+
+  type GetResumeAnalysisGroupByPayload<T extends ResumeAnalysisGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ResumeAnalysisGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ResumeAnalysisGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ResumeAnalysisGroupByOutputType[P]>
+            : GetScalarType<T[P], ResumeAnalysisGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ResumeAnalysisSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    atsScore?: boolean
+    matchPercentage?: boolean
+    resumeQuality?: boolean
+    recruiterReadability?: boolean
+    missingSkills?: boolean
+    missingKeywords?: boolean
+    finalVerdict?: boolean
+    fileUrl?: boolean
+    fileName?: boolean
+    fileSize?: boolean
+    fileType?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["resumeAnalysis"]>
+
+  export type ResumeAnalysisSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    atsScore?: boolean
+    matchPercentage?: boolean
+    resumeQuality?: boolean
+    recruiterReadability?: boolean
+    missingSkills?: boolean
+    missingKeywords?: boolean
+    finalVerdict?: boolean
+    fileUrl?: boolean
+    fileName?: boolean
+    fileSize?: boolean
+    fileType?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["resumeAnalysis"]>
+
+  export type ResumeAnalysisSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    atsScore?: boolean
+    matchPercentage?: boolean
+    resumeQuality?: boolean
+    recruiterReadability?: boolean
+    missingSkills?: boolean
+    missingKeywords?: boolean
+    finalVerdict?: boolean
+    fileUrl?: boolean
+    fileName?: boolean
+    fileSize?: boolean
+    fileType?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["resumeAnalysis"]>
+
+  export type ResumeAnalysisSelectScalar = {
+    id?: boolean
+    atsScore?: boolean
+    matchPercentage?: boolean
+    resumeQuality?: boolean
+    recruiterReadability?: boolean
+    missingSkills?: boolean
+    missingKeywords?: boolean
+    finalVerdict?: boolean
+    fileUrl?: boolean
+    fileName?: boolean
+    fileSize?: boolean
+    fileType?: boolean
+    createdAt?: boolean
+    userId?: boolean
+  }
+
+  export type ResumeAnalysisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "atsScore" | "matchPercentage" | "resumeQuality" | "recruiterReadability" | "missingSkills" | "missingKeywords" | "finalVerdict" | "fileUrl" | "fileName" | "fileSize" | "fileType" | "createdAt" | "userId", ExtArgs["result"]["resumeAnalysis"]>
+  export type ResumeAnalysisInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ResumeAnalysisIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ResumeAnalysisIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ResumeAnalysisPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ResumeAnalysis"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      atsScore: number
+      matchPercentage: number
+      resumeQuality: number
+      recruiterReadability: number
+      missingSkills: string[]
+      missingKeywords: string[]
+      finalVerdict: string | null
+      fileUrl: string | null
+      fileName: string | null
+      fileSize: number | null
+      fileType: string | null
+      createdAt: Date
+      userId: string
+    }, ExtArgs["result"]["resumeAnalysis"]>
+    composites: {}
+  }
+
+  type ResumeAnalysisGetPayload<S extends boolean | null | undefined | ResumeAnalysisDefaultArgs> = $Result.GetResult<Prisma.$ResumeAnalysisPayload, S>
+
+  type ResumeAnalysisCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ResumeAnalysisFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ResumeAnalysisCountAggregateInputType | true
+    }
+
+  export interface ResumeAnalysisDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ResumeAnalysis'], meta: { name: 'ResumeAnalysis' } }
+    /**
+     * Find zero or one ResumeAnalysis that matches the filter.
+     * @param {ResumeAnalysisFindUniqueArgs} args - Arguments to find a ResumeAnalysis
+     * @example
+     * // Get one ResumeAnalysis
+     * const resumeAnalysis = await prisma.resumeAnalysis.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ResumeAnalysisFindUniqueArgs>(args: SelectSubset<T, ResumeAnalysisFindUniqueArgs<ExtArgs>>): Prisma__ResumeAnalysisClient<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ResumeAnalysis that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ResumeAnalysisFindUniqueOrThrowArgs} args - Arguments to find a ResumeAnalysis
+     * @example
+     * // Get one ResumeAnalysis
+     * const resumeAnalysis = await prisma.resumeAnalysis.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ResumeAnalysisFindUniqueOrThrowArgs>(args: SelectSubset<T, ResumeAnalysisFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ResumeAnalysisClient<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ResumeAnalysis that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResumeAnalysisFindFirstArgs} args - Arguments to find a ResumeAnalysis
+     * @example
+     * // Get one ResumeAnalysis
+     * const resumeAnalysis = await prisma.resumeAnalysis.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ResumeAnalysisFindFirstArgs>(args?: SelectSubset<T, ResumeAnalysisFindFirstArgs<ExtArgs>>): Prisma__ResumeAnalysisClient<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ResumeAnalysis that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResumeAnalysisFindFirstOrThrowArgs} args - Arguments to find a ResumeAnalysis
+     * @example
+     * // Get one ResumeAnalysis
+     * const resumeAnalysis = await prisma.resumeAnalysis.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ResumeAnalysisFindFirstOrThrowArgs>(args?: SelectSubset<T, ResumeAnalysisFindFirstOrThrowArgs<ExtArgs>>): Prisma__ResumeAnalysisClient<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ResumeAnalyses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResumeAnalysisFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ResumeAnalyses
+     * const resumeAnalyses = await prisma.resumeAnalysis.findMany()
+     * 
+     * // Get first 10 ResumeAnalyses
+     * const resumeAnalyses = await prisma.resumeAnalysis.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const resumeAnalysisWithIdOnly = await prisma.resumeAnalysis.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ResumeAnalysisFindManyArgs>(args?: SelectSubset<T, ResumeAnalysisFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ResumeAnalysis.
+     * @param {ResumeAnalysisCreateArgs} args - Arguments to create a ResumeAnalysis.
+     * @example
+     * // Create one ResumeAnalysis
+     * const ResumeAnalysis = await prisma.resumeAnalysis.create({
+     *   data: {
+     *     // ... data to create a ResumeAnalysis
+     *   }
+     * })
+     * 
+     */
+    create<T extends ResumeAnalysisCreateArgs>(args: SelectSubset<T, ResumeAnalysisCreateArgs<ExtArgs>>): Prisma__ResumeAnalysisClient<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ResumeAnalyses.
+     * @param {ResumeAnalysisCreateManyArgs} args - Arguments to create many ResumeAnalyses.
+     * @example
+     * // Create many ResumeAnalyses
+     * const resumeAnalysis = await prisma.resumeAnalysis.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ResumeAnalysisCreateManyArgs>(args?: SelectSubset<T, ResumeAnalysisCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ResumeAnalyses and returns the data saved in the database.
+     * @param {ResumeAnalysisCreateManyAndReturnArgs} args - Arguments to create many ResumeAnalyses.
+     * @example
+     * // Create many ResumeAnalyses
+     * const resumeAnalysis = await prisma.resumeAnalysis.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ResumeAnalyses and only return the `id`
+     * const resumeAnalysisWithIdOnly = await prisma.resumeAnalysis.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ResumeAnalysisCreateManyAndReturnArgs>(args?: SelectSubset<T, ResumeAnalysisCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ResumeAnalysis.
+     * @param {ResumeAnalysisDeleteArgs} args - Arguments to delete one ResumeAnalysis.
+     * @example
+     * // Delete one ResumeAnalysis
+     * const ResumeAnalysis = await prisma.resumeAnalysis.delete({
+     *   where: {
+     *     // ... filter to delete one ResumeAnalysis
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ResumeAnalysisDeleteArgs>(args: SelectSubset<T, ResumeAnalysisDeleteArgs<ExtArgs>>): Prisma__ResumeAnalysisClient<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ResumeAnalysis.
+     * @param {ResumeAnalysisUpdateArgs} args - Arguments to update one ResumeAnalysis.
+     * @example
+     * // Update one ResumeAnalysis
+     * const resumeAnalysis = await prisma.resumeAnalysis.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ResumeAnalysisUpdateArgs>(args: SelectSubset<T, ResumeAnalysisUpdateArgs<ExtArgs>>): Prisma__ResumeAnalysisClient<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ResumeAnalyses.
+     * @param {ResumeAnalysisDeleteManyArgs} args - Arguments to filter ResumeAnalyses to delete.
+     * @example
+     * // Delete a few ResumeAnalyses
+     * const { count } = await prisma.resumeAnalysis.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ResumeAnalysisDeleteManyArgs>(args?: SelectSubset<T, ResumeAnalysisDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResumeAnalyses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResumeAnalysisUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ResumeAnalyses
+     * const resumeAnalysis = await prisma.resumeAnalysis.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ResumeAnalysisUpdateManyArgs>(args: SelectSubset<T, ResumeAnalysisUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResumeAnalyses and returns the data updated in the database.
+     * @param {ResumeAnalysisUpdateManyAndReturnArgs} args - Arguments to update many ResumeAnalyses.
+     * @example
+     * // Update many ResumeAnalyses
+     * const resumeAnalysis = await prisma.resumeAnalysis.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ResumeAnalyses and only return the `id`
+     * const resumeAnalysisWithIdOnly = await prisma.resumeAnalysis.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ResumeAnalysisUpdateManyAndReturnArgs>(args: SelectSubset<T, ResumeAnalysisUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ResumeAnalysis.
+     * @param {ResumeAnalysisUpsertArgs} args - Arguments to update or create a ResumeAnalysis.
+     * @example
+     * // Update or create a ResumeAnalysis
+     * const resumeAnalysis = await prisma.resumeAnalysis.upsert({
+     *   create: {
+     *     // ... data to create a ResumeAnalysis
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ResumeAnalysis we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ResumeAnalysisUpsertArgs>(args: SelectSubset<T, ResumeAnalysisUpsertArgs<ExtArgs>>): Prisma__ResumeAnalysisClient<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ResumeAnalyses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResumeAnalysisCountArgs} args - Arguments to filter ResumeAnalyses to count.
+     * @example
+     * // Count the number of ResumeAnalyses
+     * const count = await prisma.resumeAnalysis.count({
+     *   where: {
+     *     // ... the filter for the ResumeAnalyses we want to count
+     *   }
+     * })
+    **/
+    count<T extends ResumeAnalysisCountArgs>(
+      args?: Subset<T, ResumeAnalysisCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ResumeAnalysisCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ResumeAnalysis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResumeAnalysisAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ResumeAnalysisAggregateArgs>(args: Subset<T, ResumeAnalysisAggregateArgs>): Prisma.PrismaPromise<GetResumeAnalysisAggregateType<T>>
+
+    /**
+     * Group by ResumeAnalysis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResumeAnalysisGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ResumeAnalysisGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ResumeAnalysisGroupByArgs['orderBy'] }
+        : { orderBy?: ResumeAnalysisGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ResumeAnalysisGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetResumeAnalysisGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ResumeAnalysis model
+   */
+  readonly fields: ResumeAnalysisFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ResumeAnalysis.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ResumeAnalysisClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ResumeAnalysis model
+   */
+  interface ResumeAnalysisFieldRefs {
+    readonly id: FieldRef<"ResumeAnalysis", 'String'>
+    readonly atsScore: FieldRef<"ResumeAnalysis", 'Int'>
+    readonly matchPercentage: FieldRef<"ResumeAnalysis", 'Int'>
+    readonly resumeQuality: FieldRef<"ResumeAnalysis", 'Int'>
+    readonly recruiterReadability: FieldRef<"ResumeAnalysis", 'Int'>
+    readonly missingSkills: FieldRef<"ResumeAnalysis", 'String[]'>
+    readonly missingKeywords: FieldRef<"ResumeAnalysis", 'String[]'>
+    readonly finalVerdict: FieldRef<"ResumeAnalysis", 'String'>
+    readonly fileUrl: FieldRef<"ResumeAnalysis", 'String'>
+    readonly fileName: FieldRef<"ResumeAnalysis", 'String'>
+    readonly fileSize: FieldRef<"ResumeAnalysis", 'Int'>
+    readonly fileType: FieldRef<"ResumeAnalysis", 'String'>
+    readonly createdAt: FieldRef<"ResumeAnalysis", 'DateTime'>
+    readonly userId: FieldRef<"ResumeAnalysis", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ResumeAnalysis findUnique
+   */
+  export type ResumeAnalysisFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    /**
+     * Filter, which ResumeAnalysis to fetch.
+     */
+    where: ResumeAnalysisWhereUniqueInput
+  }
+
+  /**
+   * ResumeAnalysis findUniqueOrThrow
+   */
+  export type ResumeAnalysisFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    /**
+     * Filter, which ResumeAnalysis to fetch.
+     */
+    where: ResumeAnalysisWhereUniqueInput
+  }
+
+  /**
+   * ResumeAnalysis findFirst
+   */
+  export type ResumeAnalysisFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    /**
+     * Filter, which ResumeAnalysis to fetch.
+     */
+    where?: ResumeAnalysisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResumeAnalyses to fetch.
+     */
+    orderBy?: ResumeAnalysisOrderByWithRelationInput | ResumeAnalysisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResumeAnalyses.
+     */
+    cursor?: ResumeAnalysisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResumeAnalyses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResumeAnalyses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResumeAnalyses.
+     */
+    distinct?: ResumeAnalysisScalarFieldEnum | ResumeAnalysisScalarFieldEnum[]
+  }
+
+  /**
+   * ResumeAnalysis findFirstOrThrow
+   */
+  export type ResumeAnalysisFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    /**
+     * Filter, which ResumeAnalysis to fetch.
+     */
+    where?: ResumeAnalysisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResumeAnalyses to fetch.
+     */
+    orderBy?: ResumeAnalysisOrderByWithRelationInput | ResumeAnalysisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResumeAnalyses.
+     */
+    cursor?: ResumeAnalysisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResumeAnalyses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResumeAnalyses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResumeAnalyses.
+     */
+    distinct?: ResumeAnalysisScalarFieldEnum | ResumeAnalysisScalarFieldEnum[]
+  }
+
+  /**
+   * ResumeAnalysis findMany
+   */
+  export type ResumeAnalysisFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    /**
+     * Filter, which ResumeAnalyses to fetch.
+     */
+    where?: ResumeAnalysisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResumeAnalyses to fetch.
+     */
+    orderBy?: ResumeAnalysisOrderByWithRelationInput | ResumeAnalysisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ResumeAnalyses.
+     */
+    cursor?: ResumeAnalysisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResumeAnalyses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResumeAnalyses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResumeAnalyses.
+     */
+    distinct?: ResumeAnalysisScalarFieldEnum | ResumeAnalysisScalarFieldEnum[]
+  }
+
+  /**
+   * ResumeAnalysis create
+   */
+  export type ResumeAnalysisCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ResumeAnalysis.
+     */
+    data: XOR<ResumeAnalysisCreateInput, ResumeAnalysisUncheckedCreateInput>
+  }
+
+  /**
+   * ResumeAnalysis createMany
+   */
+  export type ResumeAnalysisCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ResumeAnalyses.
+     */
+    data: ResumeAnalysisCreateManyInput | ResumeAnalysisCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ResumeAnalysis createManyAndReturn
+   */
+  export type ResumeAnalysisCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * The data used to create many ResumeAnalyses.
+     */
+    data: ResumeAnalysisCreateManyInput | ResumeAnalysisCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ResumeAnalysis update
+   */
+  export type ResumeAnalysisUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ResumeAnalysis.
+     */
+    data: XOR<ResumeAnalysisUpdateInput, ResumeAnalysisUncheckedUpdateInput>
+    /**
+     * Choose, which ResumeAnalysis to update.
+     */
+    where: ResumeAnalysisWhereUniqueInput
+  }
+
+  /**
+   * ResumeAnalysis updateMany
+   */
+  export type ResumeAnalysisUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ResumeAnalyses.
+     */
+    data: XOR<ResumeAnalysisUpdateManyMutationInput, ResumeAnalysisUncheckedUpdateManyInput>
+    /**
+     * Filter which ResumeAnalyses to update
+     */
+    where?: ResumeAnalysisWhereInput
+    /**
+     * Limit how many ResumeAnalyses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ResumeAnalysis updateManyAndReturn
+   */
+  export type ResumeAnalysisUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * The data used to update ResumeAnalyses.
+     */
+    data: XOR<ResumeAnalysisUpdateManyMutationInput, ResumeAnalysisUncheckedUpdateManyInput>
+    /**
+     * Filter which ResumeAnalyses to update
+     */
+    where?: ResumeAnalysisWhereInput
+    /**
+     * Limit how many ResumeAnalyses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ResumeAnalysis upsert
+   */
+  export type ResumeAnalysisUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ResumeAnalysis to update in case it exists.
+     */
+    where: ResumeAnalysisWhereUniqueInput
+    /**
+     * In case the ResumeAnalysis found by the `where` argument doesn't exist, create a new ResumeAnalysis with this data.
+     */
+    create: XOR<ResumeAnalysisCreateInput, ResumeAnalysisUncheckedCreateInput>
+    /**
+     * In case the ResumeAnalysis was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ResumeAnalysisUpdateInput, ResumeAnalysisUncheckedUpdateInput>
+  }
+
+  /**
+   * ResumeAnalysis delete
+   */
+  export type ResumeAnalysisDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
+    /**
+     * Filter which ResumeAnalysis to delete.
+     */
+    where: ResumeAnalysisWhereUniqueInput
+  }
+
+  /**
+   * ResumeAnalysis deleteMany
+   */
+  export type ResumeAnalysisDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResumeAnalyses to delete
+     */
+    where?: ResumeAnalysisWhereInput
+    /**
+     * Limit how many ResumeAnalyses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ResumeAnalysis without action
+   */
+  export type ResumeAnalysisDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResumeAnalysis
+     */
+    select?: ResumeAnalysisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ResumeAnalysis
+     */
+    omit?: ResumeAnalysisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResumeAnalysisInclude<ExtArgs> | null
   }
 
 
@@ -1950,6 +3368,26 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const ResumeAnalysisScalarFieldEnum: {
+    id: 'id',
+    atsScore: 'atsScore',
+    matchPercentage: 'matchPercentage',
+    resumeQuality: 'resumeQuality',
+    recruiterReadability: 'recruiterReadability',
+    missingSkills: 'missingSkills',
+    missingKeywords: 'missingKeywords',
+    finalVerdict: 'finalVerdict',
+    fileUrl: 'fileUrl',
+    fileName: 'fileName',
+    fileSize: 'fileSize',
+    fileType: 'fileType',
+    createdAt: 'createdAt',
+    userId: 'userId'
+  };
+
+  export type ResumeAnalysisScalarFieldEnum = (typeof ResumeAnalysisScalarFieldEnum)[keyof typeof ResumeAnalysisScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -1964,6 +3402,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -2025,6 +3471,20 @@ export namespace Prisma {
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
   /**
    * Deep Input Types
    */
@@ -2042,6 +3502,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    resumeAnalyses?: ResumeAnalysisListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -2053,6 +3514,7 @@ export namespace Prisma {
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    resumeAnalyses?: ResumeAnalysisOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -2067,6 +3529,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    resumeAnalyses?: ResumeAnalysisListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -2097,6 +3560,108 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type ResumeAnalysisWhereInput = {
+    AND?: ResumeAnalysisWhereInput | ResumeAnalysisWhereInput[]
+    OR?: ResumeAnalysisWhereInput[]
+    NOT?: ResumeAnalysisWhereInput | ResumeAnalysisWhereInput[]
+    id?: StringFilter<"ResumeAnalysis"> | string
+    atsScore?: IntFilter<"ResumeAnalysis"> | number
+    matchPercentage?: IntFilter<"ResumeAnalysis"> | number
+    resumeQuality?: IntFilter<"ResumeAnalysis"> | number
+    recruiterReadability?: IntFilter<"ResumeAnalysis"> | number
+    missingSkills?: StringNullableListFilter<"ResumeAnalysis">
+    missingKeywords?: StringNullableListFilter<"ResumeAnalysis">
+    finalVerdict?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    fileUrl?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    fileName?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    fileSize?: IntNullableFilter<"ResumeAnalysis"> | number | null
+    fileType?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    createdAt?: DateTimeFilter<"ResumeAnalysis"> | Date | string
+    userId?: StringFilter<"ResumeAnalysis"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ResumeAnalysisOrderByWithRelationInput = {
+    id?: SortOrder
+    atsScore?: SortOrder
+    matchPercentage?: SortOrder
+    resumeQuality?: SortOrder
+    recruiterReadability?: SortOrder
+    missingSkills?: SortOrder
+    missingKeywords?: SortOrder
+    finalVerdict?: SortOrderInput | SortOrder
+    fileUrl?: SortOrderInput | SortOrder
+    fileName?: SortOrderInput | SortOrder
+    fileSize?: SortOrderInput | SortOrder
+    fileType?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ResumeAnalysisWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ResumeAnalysisWhereInput | ResumeAnalysisWhereInput[]
+    OR?: ResumeAnalysisWhereInput[]
+    NOT?: ResumeAnalysisWhereInput | ResumeAnalysisWhereInput[]
+    atsScore?: IntFilter<"ResumeAnalysis"> | number
+    matchPercentage?: IntFilter<"ResumeAnalysis"> | number
+    resumeQuality?: IntFilter<"ResumeAnalysis"> | number
+    recruiterReadability?: IntFilter<"ResumeAnalysis"> | number
+    missingSkills?: StringNullableListFilter<"ResumeAnalysis">
+    missingKeywords?: StringNullableListFilter<"ResumeAnalysis">
+    finalVerdict?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    fileUrl?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    fileName?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    fileSize?: IntNullableFilter<"ResumeAnalysis"> | number | null
+    fileType?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    createdAt?: DateTimeFilter<"ResumeAnalysis"> | Date | string
+    userId?: StringFilter<"ResumeAnalysis"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type ResumeAnalysisOrderByWithAggregationInput = {
+    id?: SortOrder
+    atsScore?: SortOrder
+    matchPercentage?: SortOrder
+    resumeQuality?: SortOrder
+    recruiterReadability?: SortOrder
+    missingSkills?: SortOrder
+    missingKeywords?: SortOrder
+    finalVerdict?: SortOrderInput | SortOrder
+    fileUrl?: SortOrderInput | SortOrder
+    fileName?: SortOrderInput | SortOrder
+    fileSize?: SortOrderInput | SortOrder
+    fileType?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    _count?: ResumeAnalysisCountOrderByAggregateInput
+    _avg?: ResumeAnalysisAvgOrderByAggregateInput
+    _max?: ResumeAnalysisMaxOrderByAggregateInput
+    _min?: ResumeAnalysisMinOrderByAggregateInput
+    _sum?: ResumeAnalysisSumOrderByAggregateInput
+  }
+
+  export type ResumeAnalysisScalarWhereWithAggregatesInput = {
+    AND?: ResumeAnalysisScalarWhereWithAggregatesInput | ResumeAnalysisScalarWhereWithAggregatesInput[]
+    OR?: ResumeAnalysisScalarWhereWithAggregatesInput[]
+    NOT?: ResumeAnalysisScalarWhereWithAggregatesInput | ResumeAnalysisScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ResumeAnalysis"> | string
+    atsScore?: IntWithAggregatesFilter<"ResumeAnalysis"> | number
+    matchPercentage?: IntWithAggregatesFilter<"ResumeAnalysis"> | number
+    resumeQuality?: IntWithAggregatesFilter<"ResumeAnalysis"> | number
+    recruiterReadability?: IntWithAggregatesFilter<"ResumeAnalysis"> | number
+    missingSkills?: StringNullableListFilter<"ResumeAnalysis">
+    missingKeywords?: StringNullableListFilter<"ResumeAnalysis">
+    finalVerdict?: StringNullableWithAggregatesFilter<"ResumeAnalysis"> | string | null
+    fileUrl?: StringNullableWithAggregatesFilter<"ResumeAnalysis"> | string | null
+    fileName?: StringNullableWithAggregatesFilter<"ResumeAnalysis"> | string | null
+    fileSize?: IntNullableWithAggregatesFilter<"ResumeAnalysis"> | number | null
+    fileType?: StringNullableWithAggregatesFilter<"ResumeAnalysis"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ResumeAnalysis"> | Date | string
+    userId?: StringWithAggregatesFilter<"ResumeAnalysis"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     fullName: string
@@ -2106,6 +3671,7 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
+    resumeAnalyses?: ResumeAnalysisCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -2117,6 +3683,7 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
+    resumeAnalyses?: ResumeAnalysisUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -2128,6 +3695,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resumeAnalyses?: ResumeAnalysisUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -2139,6 +3707,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resumeAnalyses?: ResumeAnalysisUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -2174,6 +3743,124 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ResumeAnalysisCreateInput = {
+    id?: string
+    atsScore: number
+    matchPercentage: number
+    resumeQuality: number
+    recruiterReadability: number
+    missingSkills?: ResumeAnalysisCreatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisCreatemissingKeywordsInput | string[]
+    finalVerdict?: string | null
+    fileUrl?: string | null
+    fileName?: string | null
+    fileSize?: number | null
+    fileType?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutResumeAnalysesInput
+  }
+
+  export type ResumeAnalysisUncheckedCreateInput = {
+    id?: string
+    atsScore: number
+    matchPercentage: number
+    resumeQuality: number
+    recruiterReadability: number
+    missingSkills?: ResumeAnalysisCreatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisCreatemissingKeywordsInput | string[]
+    finalVerdict?: string | null
+    fileUrl?: string | null
+    fileName?: string | null
+    fileSize?: number | null
+    fileType?: string | null
+    createdAt?: Date | string
+    userId: string
+  }
+
+  export type ResumeAnalysisUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    atsScore?: IntFieldUpdateOperationsInput | number
+    matchPercentage?: IntFieldUpdateOperationsInput | number
+    resumeQuality?: IntFieldUpdateOperationsInput | number
+    recruiterReadability?: IntFieldUpdateOperationsInput | number
+    missingSkills?: ResumeAnalysisUpdatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisUpdatemissingKeywordsInput | string[]
+    finalVerdict?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutResumeAnalysesNestedInput
+  }
+
+  export type ResumeAnalysisUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    atsScore?: IntFieldUpdateOperationsInput | number
+    matchPercentage?: IntFieldUpdateOperationsInput | number
+    resumeQuality?: IntFieldUpdateOperationsInput | number
+    recruiterReadability?: IntFieldUpdateOperationsInput | number
+    missingSkills?: ResumeAnalysisUpdatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisUpdatemissingKeywordsInput | string[]
+    finalVerdict?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResumeAnalysisCreateManyInput = {
+    id?: string
+    atsScore: number
+    matchPercentage: number
+    resumeQuality: number
+    recruiterReadability: number
+    missingSkills?: ResumeAnalysisCreatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisCreatemissingKeywordsInput | string[]
+    finalVerdict?: string | null
+    fileUrl?: string | null
+    fileName?: string | null
+    fileSize?: number | null
+    fileType?: string | null
+    createdAt?: Date | string
+    userId: string
+  }
+
+  export type ResumeAnalysisUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    atsScore?: IntFieldUpdateOperationsInput | number
+    matchPercentage?: IntFieldUpdateOperationsInput | number
+    resumeQuality?: IntFieldUpdateOperationsInput | number
+    recruiterReadability?: IntFieldUpdateOperationsInput | number
+    missingSkills?: ResumeAnalysisUpdatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisUpdatemissingKeywordsInput | string[]
+    finalVerdict?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResumeAnalysisUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    atsScore?: IntFieldUpdateOperationsInput | number
+    matchPercentage?: IntFieldUpdateOperationsInput | number
+    resumeQuality?: IntFieldUpdateOperationsInput | number
+    recruiterReadability?: IntFieldUpdateOperationsInput | number
+    missingSkills?: ResumeAnalysisUpdatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisUpdatemissingKeywordsInput | string[]
+    finalVerdict?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -2205,6 +3892,16 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type ResumeAnalysisListRelationFilter = {
+    every?: ResumeAnalysisWhereInput
+    some?: ResumeAnalysisWhereInput
+    none?: ResumeAnalysisWhereInput
+  }
+
+  export type ResumeAnalysisOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -2282,6 +3979,188 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type ResumeAnalysisCountOrderByAggregateInput = {
+    id?: SortOrder
+    atsScore?: SortOrder
+    matchPercentage?: SortOrder
+    resumeQuality?: SortOrder
+    recruiterReadability?: SortOrder
+    missingSkills?: SortOrder
+    missingKeywords?: SortOrder
+    finalVerdict?: SortOrder
+    fileUrl?: SortOrder
+    fileName?: SortOrder
+    fileSize?: SortOrder
+    fileType?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ResumeAnalysisAvgOrderByAggregateInput = {
+    atsScore?: SortOrder
+    matchPercentage?: SortOrder
+    resumeQuality?: SortOrder
+    recruiterReadability?: SortOrder
+    fileSize?: SortOrder
+  }
+
+  export type ResumeAnalysisMaxOrderByAggregateInput = {
+    id?: SortOrder
+    atsScore?: SortOrder
+    matchPercentage?: SortOrder
+    resumeQuality?: SortOrder
+    recruiterReadability?: SortOrder
+    finalVerdict?: SortOrder
+    fileUrl?: SortOrder
+    fileName?: SortOrder
+    fileSize?: SortOrder
+    fileType?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ResumeAnalysisMinOrderByAggregateInput = {
+    id?: SortOrder
+    atsScore?: SortOrder
+    matchPercentage?: SortOrder
+    resumeQuality?: SortOrder
+    recruiterReadability?: SortOrder
+    finalVerdict?: SortOrder
+    fileUrl?: SortOrder
+    fileName?: SortOrder
+    fileSize?: SortOrder
+    fileType?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ResumeAnalysisSumOrderByAggregateInput = {
+    atsScore?: SortOrder
+    matchPercentage?: SortOrder
+    resumeQuality?: SortOrder
+    recruiterReadability?: SortOrder
+    fileSize?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type ResumeAnalysisCreateNestedManyWithoutUserInput = {
+    create?: XOR<ResumeAnalysisCreateWithoutUserInput, ResumeAnalysisUncheckedCreateWithoutUserInput> | ResumeAnalysisCreateWithoutUserInput[] | ResumeAnalysisUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResumeAnalysisCreateOrConnectWithoutUserInput | ResumeAnalysisCreateOrConnectWithoutUserInput[]
+    createMany?: ResumeAnalysisCreateManyUserInputEnvelope
+    connect?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+  }
+
+  export type ResumeAnalysisUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ResumeAnalysisCreateWithoutUserInput, ResumeAnalysisUncheckedCreateWithoutUserInput> | ResumeAnalysisCreateWithoutUserInput[] | ResumeAnalysisUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResumeAnalysisCreateOrConnectWithoutUserInput | ResumeAnalysisCreateOrConnectWithoutUserInput[]
+    createMany?: ResumeAnalysisCreateManyUserInputEnvelope
+    connect?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2292,6 +4171,86 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type ResumeAnalysisUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ResumeAnalysisCreateWithoutUserInput, ResumeAnalysisUncheckedCreateWithoutUserInput> | ResumeAnalysisCreateWithoutUserInput[] | ResumeAnalysisUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResumeAnalysisCreateOrConnectWithoutUserInput | ResumeAnalysisCreateOrConnectWithoutUserInput[]
+    upsert?: ResumeAnalysisUpsertWithWhereUniqueWithoutUserInput | ResumeAnalysisUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ResumeAnalysisCreateManyUserInputEnvelope
+    set?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+    disconnect?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+    delete?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+    connect?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+    update?: ResumeAnalysisUpdateWithWhereUniqueWithoutUserInput | ResumeAnalysisUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ResumeAnalysisUpdateManyWithWhereWithoutUserInput | ResumeAnalysisUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ResumeAnalysisScalarWhereInput | ResumeAnalysisScalarWhereInput[]
+  }
+
+  export type ResumeAnalysisUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ResumeAnalysisCreateWithoutUserInput, ResumeAnalysisUncheckedCreateWithoutUserInput> | ResumeAnalysisCreateWithoutUserInput[] | ResumeAnalysisUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ResumeAnalysisCreateOrConnectWithoutUserInput | ResumeAnalysisCreateOrConnectWithoutUserInput[]
+    upsert?: ResumeAnalysisUpsertWithWhereUniqueWithoutUserInput | ResumeAnalysisUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ResumeAnalysisCreateManyUserInputEnvelope
+    set?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+    disconnect?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+    delete?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+    connect?: ResumeAnalysisWhereUniqueInput | ResumeAnalysisWhereUniqueInput[]
+    update?: ResumeAnalysisUpdateWithWhereUniqueWithoutUserInput | ResumeAnalysisUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ResumeAnalysisUpdateManyWithWhereWithoutUserInput | ResumeAnalysisUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ResumeAnalysisScalarWhereInput | ResumeAnalysisScalarWhereInput[]
+  }
+
+  export type ResumeAnalysisCreatemissingSkillsInput = {
+    set: string[]
+  }
+
+  export type ResumeAnalysisCreatemissingKeywordsInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutResumeAnalysesInput = {
+    create?: XOR<UserCreateWithoutResumeAnalysesInput, UserUncheckedCreateWithoutResumeAnalysesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutResumeAnalysesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ResumeAnalysisUpdatemissingSkillsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ResumeAnalysisUpdatemissingKeywordsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutResumeAnalysesNestedInput = {
+    create?: XOR<UserCreateWithoutResumeAnalysesInput, UserUncheckedCreateWithoutResumeAnalysesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutResumeAnalysesInput
+    upsert?: UserUpsertWithoutResumeAnalysesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutResumeAnalysesInput, UserUpdateWithoutResumeAnalysesInput>, UserUncheckedUpdateWithoutResumeAnalysesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -2376,6 +4335,304 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type ResumeAnalysisCreateWithoutUserInput = {
+    id?: string
+    atsScore: number
+    matchPercentage: number
+    resumeQuality: number
+    recruiterReadability: number
+    missingSkills?: ResumeAnalysisCreatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisCreatemissingKeywordsInput | string[]
+    finalVerdict?: string | null
+    fileUrl?: string | null
+    fileName?: string | null
+    fileSize?: number | null
+    fileType?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ResumeAnalysisUncheckedCreateWithoutUserInput = {
+    id?: string
+    atsScore: number
+    matchPercentage: number
+    resumeQuality: number
+    recruiterReadability: number
+    missingSkills?: ResumeAnalysisCreatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisCreatemissingKeywordsInput | string[]
+    finalVerdict?: string | null
+    fileUrl?: string | null
+    fileName?: string | null
+    fileSize?: number | null
+    fileType?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ResumeAnalysisCreateOrConnectWithoutUserInput = {
+    where: ResumeAnalysisWhereUniqueInput
+    create: XOR<ResumeAnalysisCreateWithoutUserInput, ResumeAnalysisUncheckedCreateWithoutUserInput>
+  }
+
+  export type ResumeAnalysisCreateManyUserInputEnvelope = {
+    data: ResumeAnalysisCreateManyUserInput | ResumeAnalysisCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ResumeAnalysisUpsertWithWhereUniqueWithoutUserInput = {
+    where: ResumeAnalysisWhereUniqueInput
+    update: XOR<ResumeAnalysisUpdateWithoutUserInput, ResumeAnalysisUncheckedUpdateWithoutUserInput>
+    create: XOR<ResumeAnalysisCreateWithoutUserInput, ResumeAnalysisUncheckedCreateWithoutUserInput>
+  }
+
+  export type ResumeAnalysisUpdateWithWhereUniqueWithoutUserInput = {
+    where: ResumeAnalysisWhereUniqueInput
+    data: XOR<ResumeAnalysisUpdateWithoutUserInput, ResumeAnalysisUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ResumeAnalysisUpdateManyWithWhereWithoutUserInput = {
+    where: ResumeAnalysisScalarWhereInput
+    data: XOR<ResumeAnalysisUpdateManyMutationInput, ResumeAnalysisUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ResumeAnalysisScalarWhereInput = {
+    AND?: ResumeAnalysisScalarWhereInput | ResumeAnalysisScalarWhereInput[]
+    OR?: ResumeAnalysisScalarWhereInput[]
+    NOT?: ResumeAnalysisScalarWhereInput | ResumeAnalysisScalarWhereInput[]
+    id?: StringFilter<"ResumeAnalysis"> | string
+    atsScore?: IntFilter<"ResumeAnalysis"> | number
+    matchPercentage?: IntFilter<"ResumeAnalysis"> | number
+    resumeQuality?: IntFilter<"ResumeAnalysis"> | number
+    recruiterReadability?: IntFilter<"ResumeAnalysis"> | number
+    missingSkills?: StringNullableListFilter<"ResumeAnalysis">
+    missingKeywords?: StringNullableListFilter<"ResumeAnalysis">
+    finalVerdict?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    fileUrl?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    fileName?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    fileSize?: IntNullableFilter<"ResumeAnalysis"> | number | null
+    fileType?: StringNullableFilter<"ResumeAnalysis"> | string | null
+    createdAt?: DateTimeFilter<"ResumeAnalysis"> | Date | string
+    userId?: StringFilter<"ResumeAnalysis"> | string
+  }
+
+  export type UserCreateWithoutResumeAnalysesInput = {
+    id?: string
+    fullName: string
+    email: string
+    password: string
+    gender: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutResumeAnalysesInput = {
+    id?: string
+    fullName: string
+    email: string
+    password: string
+    gender: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutResumeAnalysesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutResumeAnalysesInput, UserUncheckedCreateWithoutResumeAnalysesInput>
+  }
+
+  export type UserUpsertWithoutResumeAnalysesInput = {
+    update: XOR<UserUpdateWithoutResumeAnalysesInput, UserUncheckedUpdateWithoutResumeAnalysesInput>
+    create: XOR<UserCreateWithoutResumeAnalysesInput, UserUncheckedCreateWithoutResumeAnalysesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutResumeAnalysesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutResumeAnalysesInput, UserUncheckedUpdateWithoutResumeAnalysesInput>
+  }
+
+  export type UserUpdateWithoutResumeAnalysesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutResumeAnalysesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResumeAnalysisCreateManyUserInput = {
+    id?: string
+    atsScore: number
+    matchPercentage: number
+    resumeQuality: number
+    recruiterReadability: number
+    missingSkills?: ResumeAnalysisCreatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisCreatemissingKeywordsInput | string[]
+    finalVerdict?: string | null
+    fileUrl?: string | null
+    fileName?: string | null
+    fileSize?: number | null
+    fileType?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ResumeAnalysisUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    atsScore?: IntFieldUpdateOperationsInput | number
+    matchPercentage?: IntFieldUpdateOperationsInput | number
+    resumeQuality?: IntFieldUpdateOperationsInput | number
+    recruiterReadability?: IntFieldUpdateOperationsInput | number
+    missingSkills?: ResumeAnalysisUpdatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisUpdatemissingKeywordsInput | string[]
+    finalVerdict?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResumeAnalysisUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    atsScore?: IntFieldUpdateOperationsInput | number
+    matchPercentage?: IntFieldUpdateOperationsInput | number
+    resumeQuality?: IntFieldUpdateOperationsInput | number
+    recruiterReadability?: IntFieldUpdateOperationsInput | number
+    missingSkills?: ResumeAnalysisUpdatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisUpdatemissingKeywordsInput | string[]
+    finalVerdict?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResumeAnalysisUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    atsScore?: IntFieldUpdateOperationsInput | number
+    matchPercentage?: IntFieldUpdateOperationsInput | number
+    resumeQuality?: IntFieldUpdateOperationsInput | number
+    recruiterReadability?: IntFieldUpdateOperationsInput | number
+    missingSkills?: ResumeAnalysisUpdatemissingSkillsInput | string[]
+    missingKeywords?: ResumeAnalysisUpdatemissingKeywordsInput | string[]
+    finalVerdict?: NullableStringFieldUpdateOperationsInput | string | null
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
+    fileSize?: NullableIntFieldUpdateOperationsInput | number | null
+    fileType?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
