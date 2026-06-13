@@ -5,7 +5,7 @@ import { analyzeResume } from "@/lib/openrouter";
 
 import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
-
+import path from "path";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
@@ -56,30 +56,10 @@ export async function POST(request) {
     const fileSize = resume.size;
     const fileType = resume.type;
 
-    // =========================
-    // CLOUDINARY UPLOAD
-    // =========================
-
     const bytes = await resume.arrayBuffer();
-
     const buffer = Buffer.from(bytes);
-
-    // const uploadedFile = await new Promise(
-    //   (resolve, reject) => {
-    //     cloudinary.uploader
-    //       .upload_stream(
-    //         {
-    //           resource_type: "raw",
-    //           folder: "resumes",
-    //         },
-    //         (error, result) => {
-    //           if (error) reject(error);
-    //           else resolve(result);
-    //         }
-    //       )
-    //       .end(buffer);
-    //   }
-    // );
+    const extension = path.extname(resume.name);
+    const fileNameWithoutExt = path.parse(resume.name).name;
 
     const uploadedFile = await new Promise((resolve, reject) => {
       cloudinary.uploader
@@ -87,9 +67,7 @@ export async function POST(request) {
           {
             resource_type: "raw",
             folder: "resumes",
-
-            public_id: `${Date.now()}-${resume.name}`,
-
+            public_id: `${Date.now()}-${fileNameWithoutExt}${extension}`,
             use_filename: true,
             unique_filename: false,
           },
@@ -100,13 +78,20 @@ export async function POST(request) {
         )
         .end(buffer);
     });
-    console.log("Uploaded File:", uploadedFile);
 
-    // const fileUrl = uploadedFile.secure_url;
-    const fileUrl = uploadedFile.secure_url.replace(
-      "/upload/",
-      "/upload/fl_attachment/",
-    );
+    // console.log("Uploaded File:", uploadedFile);
+
+    // Preview URL
+    const viewUrl = uploadedFile.secure_url;
+
+    // Download URL
+    // const downloadUrl = uploadedFile.secure_url.replace(
+    //   "/upload/",
+    //   "/upload/fl_attachment/",
+    // );
+
+    // console.log("View URL:", viewUrl);
+    // console.log("Download URL:", downloadUrl);
 
     // =========================
     // RESUME TEXT EXTRACT
@@ -119,27 +104,97 @@ export async function POST(request) {
     // =========================
 
     const prompt = `
-You are an expert ATS Resume Analyzer.
+You are an expert ATS Resume Analyzer, Recruiter, Career Coach, and Hiring Manager.
 
-Return ONLY valid JSON.
+Analyze the resume against the provided Job Description.
+
+IMPORTANT RULES:
+- Return ONLY valid JSON.
+- Do not return markdown.
+- Do not wrap response in \`\`\`json.
+- All scores must be between 0 and 100.
+- Give realistic and professional feedback.
+
+Return JSON in this exact format:
 
 {
   "atsScore": 0,
   "matchPercentage": 0,
 
+  "resumeSummary": "",
+
   "finalVerdict": "",
 
   "resumeScoreGauge": {
+    "atsCompatibility": 0,
     "resumeQuality": 0,
     "recruiterReadability": 0
   },
 
   "skillMatchAnalysis": {
-    "missingSkills": []
+    "matchedSkills": [
+      {
+        "skill": "",
+        "score": 0
+      }
+    ],
+    "missingSkills": [],
+    "recommendedSkills": [],
+    "skillGapPercentage": 0
+  },
+
+  "sectionWiseAnalysis": {
+    "professionalSummary": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    },
+    "skillsSection": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    },
+    "experienceSection": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    },
+    "projectsSection": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    },
+    "educationSection": {
+      "score": 0,
+      "feedback": "",
+      "suggestion": ""
+    }
   },
 
   "missingKeywordsAnalysis": {
-    "keywords": []
+    "keywords": [],
+    "priorityKeywords": [],
+    "atsImpactLevel": "Low"
+  },
+
+  "resumeStrengths": [],
+
+  "resumeWeaknesses": [],
+
+  "improvementSuggestions": [],
+
+  "careerCoach": {
+    "overallAdvice": "",
+    "recommendedLearningPath": [],
+    "recommendedProjects": [],
+    "nextCareerSteps": []
+  },
+
+  "interviewQuestions": {
+    "technical": [],
+    "projectBased": [],
+    "behavioral": [],
+    "hr": []
   }
 }
 
@@ -156,10 +211,6 @@ RESUME:
 ${resumeText}
 `;
 
-    // =========================
-    // AI RESPONSE
-    // =========================
-
     const aiResponse = await analyzeResume(prompt);
 
     const cleanResponse = aiResponse
@@ -168,30 +219,18 @@ ${resumeText}
       .trim();
 
     const analysis = JSON.parse(cleanResponse);
+    // console.log("AI Analysis:", analysis);
 
-    // =========================
     // DATABASE SAVE
-    // =========================
-
     const savedAnalysis = await prisma.resumeAnalysis.create({
       data: {
-        atsScore: analysis.atsScore || 0,
+        aiAnalysis: analysis,
 
-        matchPercentage: analysis.matchPercentage || 0,
-
-        resumeQuality: analysis.resumeScoreGauge?.resumeQuality || 0,
-
-        recruiterReadability:
-          analysis.resumeScoreGauge?.recruiterReadability || 0,
-
-        missingSkills: analysis.skillMatchAnalysis?.missingSkills || [],
-
-        missingKeywords: analysis.missingKeywordsAnalysis?.keywords || [],
-
-        finalVerdict: analysis.finalVerdict || "",
+        companyName: companyName,
+        jobRole: jobTitle,
 
         // File Details
-        fileUrl,
+        fileUrl: viewUrl,
         fileName,
         fileSize,
         fileType,
@@ -201,14 +240,11 @@ ${resumeText}
       },
     });
 
-    // =========================
-    // RESPONSE
-    // =========================
+    // console.log("Saved Analysis:", savedAnalysis);
 
     return NextResponse.json({
       success: true,
-      analysis,
-      savedAnalysis,
+      id: savedAnalysis.id,
     });
   } catch (error) {
     console.error(error);

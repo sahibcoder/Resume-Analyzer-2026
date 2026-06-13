@@ -26,6 +26,7 @@ model User {
 
   // Relation
   resumeAnalyses ResumeAnalysis[]
+  feedbacks      Feedback[]
 
   @@map("user")
 }
@@ -33,17 +34,14 @@ model User {
 model ResumeAnalysis {
   id String @id @default(cuid())
 
-  atsScore        Int
-  matchPercentage Int
+  // AI Analysis Result
+  aiAnalysis Json?
 
-  resumeQuality        Int
-  recruiterReadability Int
+  // Job Details
+  companyName String?
+  jobRole     String?
 
-  missingSkills   String[]
-  missingKeywords String[]
-
-  finalVerdict String?
-
+  // File Metadata
   fileUrl  String?
   fileName String?
   fileSize Int?
@@ -51,6 +49,22 @@ model ResumeAnalysis {
 
   createdAt DateTime @default(now())
 
+  // User Relation
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("resume_analyses")
+}
+
+model Feedback {
+  id      String @id @default(cuid())
+  rating  Int
+  message String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@map("feedbacks")
 }

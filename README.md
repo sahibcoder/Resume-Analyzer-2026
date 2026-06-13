@@ -55,3 +55,100 @@ Results-driven Full Stack Web Developer with experience in building responsive a
 3. Recruiter Readability
 4. Missing Skills
 5. Missing Keywords
+
+
+👍 Neutral / Balanced Feedback
+“Good tool for resume review, but some suggestions could be more detailed.”
+“Helpful for beginners, especially for understanding ATS keywords.”
+“It gave me a clear direction to improve my resume structure.”
+“Useful feedback, but I would like more industry-specific suggestions.”
+“Overall good experience, helped me identify missing sections in my resume.”
+⚠️ Critical / Improvement Feedback (good for realism)
+“The suggestions are useful, but sometimes they feel too generic.”
+“It helped, but I expected more deep analysis of my experience section.”
+“UI is good, but feedback could include more examples.”
+“Good start, but needs better accuracy for technical roles.”
+“Some recommendations were repetitive and not very actionable.”
+
+
+
+Total Uploaded Resumes
+12
+
+Total Analyzed Resumes
+12
+
+AI Suggestions
+42
+
+Average ATS Score
+78%
+
+Company Name
+Google
+Role
+Frontend Developer
+File Name - Ajay-resume.pdf and Size is 1 MB
+Analyzed On:
+11 Jun 2026
+
+[View Report]
+
+
+
+
+
+ATS ke basis par.
+Excellent
+Strong
+Average
+Weak
+
+
+
+📄 MERN_Developer.pdf
+
+🎯 ATS Score       82%
+💪 Strength        Strong
+📈 Skill Match     87%
+🔑 Missing Keys    6
+🤖 Suggestions     8
+
+Analyzed:
+11 Jun 2026
+
+[View Analysis]
+
+
+┌─────────────────┐
+│ Total Resumes   │
+│ 5,432           │
+└─────────────────┘
+
+await prisma.resumeAnalysis.findMany({
+  include: {
+    user: {
+      select: {
+        fullName: true,
+        email: true,
+      },
+    },
+  },
+  orderBy: {
+    createdAt: "desc",
+  },
+});
+
+
+await prisma.user.findMany({
+  include: {
+    resumeAnalyses: true,
+  },
+});
+
+
+Admin 
+FullName
+Email
+Joined On
+Total Resumes

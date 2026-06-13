@@ -133,13 +133,9 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.ResumeAnalysisScalarFieldEnum = {
   id: 'id',
-  atsScore: 'atsScore',
-  matchPercentage: 'matchPercentage',
-  resumeQuality: 'resumeQuality',
-  recruiterReadability: 'recruiterReadability',
-  missingSkills: 'missingSkills',
-  missingKeywords: 'missingKeywords',
-  finalVerdict: 'finalVerdict',
+  aiAnalysis: 'aiAnalysis',
+  companyName: 'companyName',
+  jobRole: 'jobRole',
   fileUrl: 'fileUrl',
   fileName: 'fileName',
   fileSize: 'fileSize',
@@ -148,14 +144,33 @@ exports.Prisma.ResumeAnalysisScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.FeedbackScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  message: 'message',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {
@@ -169,7 +184,8 @@ exports.Role = exports.$Enums.Role = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  ResumeAnalysis: 'ResumeAnalysis'
+  ResumeAnalysis: 'ResumeAnalysis',
+  Feedback: 'Feedback'
 };
 
 /**
