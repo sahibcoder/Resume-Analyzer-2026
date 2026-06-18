@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Link from "next/link";
 import { signIn, getSession } from "next-auth/react";
+import { Home } from "lucide-react";
+
 
 const LoginForm = () => {
   const router = useRouter();
@@ -61,14 +63,28 @@ const LoginForm = () => {
   };
 
   return (
+    
+    
+    
     <div className="bg-white rounded-md p-6">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
+      
         {({ isSubmitting }) => (
+          
           <Form className="flex  flex-col gap-3">
+            <div className="self-start mb-4">
+  <Link href="/">
+    <Button className="bg-indigo-600 hover:bg-indigo-700 cursor-pointer">
+      <Home className="w-4 h-4 mr-2" />
+      Home Page
+    </Button>
+  </Link>
+</div>
+         
             {/* Login*/}
             <div className="sm:col-span-2">
               <h3 className="text-lg font-semibold text-slate-700">Login</h3>

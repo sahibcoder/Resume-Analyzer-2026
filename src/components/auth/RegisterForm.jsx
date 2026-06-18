@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
+import { Home } from "lucide-react";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -59,11 +60,18 @@ const RegisterForm = () => {
       >
         {({ isSubmitting, values, setFieldValue }) => (
           <Form className="flex flex-col gap-3">
+            {/* home page button */}
+            <div className="self-start mb-4">
+              <Link href="/">
+                <Button className="bg-indigo-600 hover:bg-indigo-700 cursor-pointer">
+                  <Home className="w-4 h-4 mr-2" />
+                  Home Page
+                </Button>
+              </Link>
+            </div>
             {/* Heading */}
             <div className="flex justify-center items-center">
-              <h3 className="text-lg font-semibold text-slate-700">
-                Register
-              </h3>
+              <h3 className="text-lg font-semibold text-slate-700">Register</h3>
             </div>
 
             {/* Gender */}
@@ -100,11 +108,10 @@ const RegisterForm = () => {
                     <Image
                       src="/boy.png"
                       alt="boy"
-                       priority
-                     width={50}
-                     height={50}
+                      priority
+                      width={50}
+                      height={50}
                       draggable={false}
-                     
                     />
 
                     <span className="font-semibold text-blue-600">Boy</span>
@@ -134,10 +141,9 @@ const RegisterForm = () => {
                       src="/girl.png"
                       alt="girl"
                       priority
-                     width={50}
-                     height={50}
+                      width={50}
+                      height={50}
                       draggable={false}
-                      
                     />
 
                     <span className="font-semibold text-pink-600">Girl</span>
