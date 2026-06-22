@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import {Inter} from "next/font/google";
 import "./globals.css";
-
+import Script from "next/script";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,6 +33,11 @@ export default function RootLayout({ children }) {
           </TooltipProvider>
           <Toaster position="top-right" richColors closeButton />
         </Providers>
+        {/* Razorpay Script */}
+        <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

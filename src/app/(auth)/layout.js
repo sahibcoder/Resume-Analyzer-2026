@@ -7,6 +7,7 @@ export default function AuthLayout({ children }) {
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-indigo-100 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-6xl overflow-hidden rounded-3xl bg-white shadow-2xl border border-gray-100">
         <div className="grid md:grid-cols-2">
+          
           {/* Left Side Image */}
           <div className="relative hidden md:flex items-center justify-center bg-gradient-to-br from-violet-600 to-indigo-700 p-10">
             <div className="relative w-full h-[650px]">

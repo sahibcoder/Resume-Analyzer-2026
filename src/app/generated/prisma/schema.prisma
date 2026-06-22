@@ -27,6 +27,7 @@ model User {
   // Relation
   resumeAnalyses ResumeAnalysis[]
   feedbacks      Feedback[]
+  payments       Payment[]
 
   @@map("user")
 }
@@ -48,10 +49,9 @@ model ResumeAnalysis {
   fileType String?
 
   createdAt DateTime @default(now())
-
   // User Relation
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("resume_analyses")
 }
@@ -67,4 +67,15 @@ model Feedback {
   createdAt DateTime @default(now())
 
   @@map("feedbacks")
+}
+
+model Payment {
+  id                String @id @default(cuid())
+  amount            Int
+  razorpayOrderId   String @unique
+  razorpayPaymentId String @unique
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }

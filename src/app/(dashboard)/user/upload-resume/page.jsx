@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import { toast } from "sonner";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import * as Yup from "yup";
@@ -126,39 +126,147 @@ export default function ResumeAnalyzeForm() {
         buttonText: "text-pink-600",
       };
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = async (values) => {
     try {
-      const formData = new FormData();
-
-      formData.append("companyName", values.companyName);
-
-      formData.append("jobTitle", values.jobTitle);
-
-      formData.append("jobDescription", values.jobDescription);
-
-      formData.append("resume", values.resume);
-
-      const response = await fetch("/api/extract-resume", {
+      // Create Razorpay Order
+      const orderRes = await fetch("/api/create-order", {
         method: "POST",
-        body: formData,
       });
 
-      const data = await response.json();
-      console.log("API Response:", data);
+      const order = await orderRes.json();
 
-      // localStorage.setItem("resumeAnalysis", JSON.stringify(data.analysis));
+      if (!order.id) {
+        toast.error("Failed to create payment order");
+        return;
+      }
 
-      resetForm();
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: order.currency,
+        order_id: order.id,
 
-      setSelectedFile(null);
+        name: "AI Resume Analyzer",
+        description: "Resume Analysis Fee",
 
-      router.push(`/user/resume-result/${data.id}`);
+        handler: async function (response) {
+          try {
+            console.log("RAZORPAY RESPONSE =>", response);
+
+            // Verify Payment
+            const verifyRes = await fetch("/api/payment", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+
+            const verifyData = await verifyRes.json();
+
+            console.log("VERIFY DATA =>", verifyData);
+
+            if (!verifyData.id) {
+              toast.error("Payment verification failed");
+              return;
+            }
+
+            toast.success("Payment Successful");
+
+            // Resume Analysis
+            const formData = new FormData();
+
+            formData.append("companyName", values.companyName);
+            formData.append("jobTitle", values.jobTitle);
+            formData.append("jobDescription", values.jobDescription);
+            formData.append("resume", values.resume);
+
+            const analysisRes = await fetch("/api/extract-resume", {
+              method: "POST",
+              body: formData,
+            });
+
+            const analysisData = await analysisRes.json();
+
+            console.log("ANALYSIS DATA =>", analysisData);
+
+            if (!analysisRes.ok || !analysisData.success) {
+              toast.error(analysisData.error || "Resume analysis failed");
+              return;
+            }
+
+            toast.success("Resume analyzed successfully");
+
+            // Redirect
+            router.push(`/user/resume-result/${analysisData.id}`);
+          } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong");
+          }
+        },
+
+        modal: {
+          ondismiss: function () {
+            toast.error("Payment cancelled");
+          },
+        },
+
+        theme: {
+          color: "#2563eb",
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
     } catch (error) {
       console.error(error);
-    } finally {
-      setSubmitting(false);
+      toast.error("Failed to initiate payment");
     }
   };
+
+  // const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  //   try {
+  //     const formData = new FormData();
+
+  //     formData.append("companyName", values.companyName);
+
+  //     formData.append("jobTitle", values.jobTitle);
+
+  //     formData.append("jobDescription", values.jobDescription);
+
+  //     formData.append("resume", values.resume);
+
+  //     const response = await fetch("/api/extract-resume", {
+  //       method: "POST",
+  //       body: formData,
+  //     });
+
+  //     const data = await response.json();
+  //     console.log("API Response:", data);
+
+  //     if (!response.ok) {
+  //       toast.error(data.message || "Resume analysis failed!");
+  //       return;
+  //     }
+  //     // localStorage.setItem("resumeAnalysis", JSON.stringify(data.analysis));
+
+  //     resetForm();
+
+  //     setSelectedFile(null);
+
+  //     router.push(`/user/resume-result/${data.id}`);
+  //   } catch (error) {
+  //     console.error(error);
+
+  //   toast.error("Something went wrong. Please try again.");
+  //   } finally {
+  //     setSubmitting(false);
+  //   }
+  // };
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -192,7 +300,9 @@ export default function ResumeAnalyzeForm() {
               <Form className="space-y-6">
                 {/* Company */}
                 <div>
-                  <Label className="mb-2 block">Company Name<span className="text-rose-500">*</span></Label>
+                  <Label className="mb-2 block">
+                    Company Name<span className="text-rose-500">*</span>
+                  </Label>
 
                   <div className="relative">
                     <Building2
@@ -223,7 +333,9 @@ export default function ResumeAnalyzeForm() {
 
                 {/* Job Title */}
                 <div>
-                  <Label className="mb-2 block">Job Title<span className="text-rose-500">*</span></Label>
+                  <Label className="mb-2 block">
+                    Job Title<span className="text-rose-500">*</span>
+                  </Label>
 
                   <div className="relative">
                     <Briefcase className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -249,7 +361,9 @@ export default function ResumeAnalyzeForm() {
 
                 {/* Description */}
                 <div>
-                  <Label className="mb-2 block">Job Description<span className="text-rose-500">*</span></Label>
+                  <Label className="mb-2 block">
+                    Job Description<span className="text-rose-500">*</span>
+                  </Label>
 
                   <div className="relative">
                     <FileText className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -277,7 +391,9 @@ export default function ResumeAnalyzeForm() {
 
                 {/* Upload */}
                 <div>
-                  <Label className="mb-2 block">Upload Resume<span className="text-rose-500">*</span></Label>
+                  <Label className="mb-2 block">
+                    Upload Resume<span className="text-rose-500">*</span>
+                  </Label>
 
                   <label
                     className={`
@@ -393,10 +509,20 @@ export default function ResumeAnalyzeForm() {
                   />
                 </div>
 
+                {/* payment button */}
+                {/* <Button
+                  type="button"
+                  onClick={handlePayment}
+                  className="w-full mb-4 bg-green-600 hover:bg-green-700 text-white"
+                >
+                  Pay ₹10 & Continue
+                </Button> */}
+
                 {/* Submit */}
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
+                  // disabled={isSubmitting}
+                  //  disabled={isSubmitting || !session?.user?.hasPaid}
                   className={`
                     h-12 w-full cursor-pointer
                     bg-linear-to-r text-white
