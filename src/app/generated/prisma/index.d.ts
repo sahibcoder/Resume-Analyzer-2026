@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model PasswordResetOtp
+ * 
+ */
+export type PasswordResetOtp = $Result.DefaultSelection<Prisma.$PasswordResetOtpPayload>
+/**
  * Model ResumeAnalysis
  * 
  */
@@ -181,6 +186,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.passwordResetOtp`: Exposes CRUD operations for the **PasswordResetOtp** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PasswordResetOtps
+    * const passwordResetOtps = await prisma.passwordResetOtp.findMany()
+    * ```
+    */
+  get passwordResetOtp(): Prisma.PasswordResetOtpDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.resumeAnalysis`: Exposes CRUD operations for the **ResumeAnalysis** model.
@@ -646,6 +661,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    PasswordResetOtp: 'PasswordResetOtp',
     ResumeAnalysis: 'ResumeAnalysis',
     Feedback: 'Feedback',
     Payment: 'Payment'
@@ -664,7 +680,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "resumeAnalysis" | "feedback" | "payment"
+      modelProps: "user" | "passwordResetOtp" | "resumeAnalysis" | "feedback" | "payment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -739,6 +755,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      PasswordResetOtp: {
+        payload: Prisma.$PasswordResetOtpPayload<ExtArgs>
+        fields: Prisma.PasswordResetOtpFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PasswordResetOtpFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PasswordResetOtpFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload>
+          }
+          findFirst: {
+            args: Prisma.PasswordResetOtpFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PasswordResetOtpFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload>
+          }
+          findMany: {
+            args: Prisma.PasswordResetOtpFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload>[]
+          }
+          create: {
+            args: Prisma.PasswordResetOtpCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload>
+          }
+          createMany: {
+            args: Prisma.PasswordResetOtpCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PasswordResetOtpCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload>[]
+          }
+          delete: {
+            args: Prisma.PasswordResetOtpDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload>
+          }
+          update: {
+            args: Prisma.PasswordResetOtpUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload>
+          }
+          deleteMany: {
+            args: Prisma.PasswordResetOtpDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PasswordResetOtpUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PasswordResetOtpUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload>[]
+          }
+          upsert: {
+            args: Prisma.PasswordResetOtpUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PasswordResetOtpPayload>
+          }
+          aggregate: {
+            args: Prisma.PasswordResetOtpAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePasswordResetOtp>
+          }
+          groupBy: {
+            args: Prisma.PasswordResetOtpGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PasswordResetOtpGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PasswordResetOtpCountArgs<ExtArgs>
+            result: $Utils.Optional<PasswordResetOtpCountAggregateOutputType> | number
           }
         }
       }
@@ -1073,6 +1163,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    passwordResetOtp?: PasswordResetOtpOmit
     resumeAnalysis?: ResumeAnalysisOmit
     feedback?: FeedbackOmit
     payment?: PaymentOmit
@@ -1159,12 +1250,14 @@ export namespace Prisma {
     resumeAnalyses: number
     feedbacks: number
     payments: number
+    passwordResetOtps: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     resumeAnalyses?: boolean | UserCountOutputTypeCountResumeAnalysesArgs
     feedbacks?: boolean | UserCountOutputTypeCountFeedbacksArgs
     payments?: boolean | UserCountOutputTypeCountPaymentsArgs
+    passwordResetOtps?: boolean | UserCountOutputTypeCountPasswordResetOtpsArgs
   }
 
   // Custom InputTypes
@@ -1197,6 +1290,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PaymentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPasswordResetOtpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PasswordResetOtpWhereInput
   }
 
 
@@ -1395,6 +1495,7 @@ export namespace Prisma {
     resumeAnalyses?: boolean | User$resumeAnalysesArgs<ExtArgs>
     feedbacks?: boolean | User$feedbacksArgs<ExtArgs>
     payments?: boolean | User$paymentsArgs<ExtArgs>
+    passwordResetOtps?: boolean | User$passwordResetOtpsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1436,6 +1537,7 @@ export namespace Prisma {
     resumeAnalyses?: boolean | User$resumeAnalysesArgs<ExtArgs>
     feedbacks?: boolean | User$feedbacksArgs<ExtArgs>
     payments?: boolean | User$paymentsArgs<ExtArgs>
+    passwordResetOtps?: boolean | User$passwordResetOtpsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1447,6 +1549,7 @@ export namespace Prisma {
       resumeAnalyses: Prisma.$ResumeAnalysisPayload<ExtArgs>[]
       feedbacks: Prisma.$FeedbackPayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
+      passwordResetOtps: Prisma.$PasswordResetOtpPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1854,6 +1957,7 @@ export namespace Prisma {
     resumeAnalyses<T extends User$resumeAnalysesArgs<ExtArgs> = {}>(args?: Subset<T, User$resumeAnalysesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResumeAnalysisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     feedbacks<T extends User$feedbacksArgs<ExtArgs> = {}>(args?: Subset<T, User$feedbacksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payments<T extends User$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    passwordResetOtps<T extends User$passwordResetOtpsArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetOtpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2356,6 +2460,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.passwordResetOtps
+   */
+  export type User$passwordResetOtpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    where?: PasswordResetOtpWhereInput
+    orderBy?: PasswordResetOtpOrderByWithRelationInput | PasswordResetOtpOrderByWithRelationInput[]
+    cursor?: PasswordResetOtpWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PasswordResetOtpScalarFieldEnum | PasswordResetOtpScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2371,6 +2499,1155 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PasswordResetOtp
+   */
+
+  export type AggregatePasswordResetOtp = {
+    _count: PasswordResetOtpCountAggregateOutputType | null
+    _avg: PasswordResetOtpAvgAggregateOutputType | null
+    _sum: PasswordResetOtpSumAggregateOutputType | null
+    _min: PasswordResetOtpMinAggregateOutputType | null
+    _max: PasswordResetOtpMaxAggregateOutputType | null
+  }
+
+  export type PasswordResetOtpAvgAggregateOutputType = {
+    attempts: number | null
+  }
+
+  export type PasswordResetOtpSumAggregateOutputType = {
+    attempts: number | null
+  }
+
+  export type PasswordResetOtpMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    otpHash: string | null
+    attempts: number | null
+    isUsed: boolean | null
+    resetToken: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PasswordResetOtpMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    otpHash: string | null
+    attempts: number | null
+    isUsed: boolean | null
+    resetToken: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PasswordResetOtpCountAggregateOutputType = {
+    id: number
+    userId: number
+    otpHash: number
+    attempts: number
+    isUsed: number
+    resetToken: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PasswordResetOtpAvgAggregateInputType = {
+    attempts?: true
+  }
+
+  export type PasswordResetOtpSumAggregateInputType = {
+    attempts?: true
+  }
+
+  export type PasswordResetOtpMinAggregateInputType = {
+    id?: true
+    userId?: true
+    otpHash?: true
+    attempts?: true
+    isUsed?: true
+    resetToken?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PasswordResetOtpMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    otpHash?: true
+    attempts?: true
+    isUsed?: true
+    resetToken?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PasswordResetOtpCountAggregateInputType = {
+    id?: true
+    userId?: true
+    otpHash?: true
+    attempts?: true
+    isUsed?: true
+    resetToken?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PasswordResetOtpAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PasswordResetOtp to aggregate.
+     */
+    where?: PasswordResetOtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetOtps to fetch.
+     */
+    orderBy?: PasswordResetOtpOrderByWithRelationInput | PasswordResetOtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PasswordResetOtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetOtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetOtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PasswordResetOtps
+    **/
+    _count?: true | PasswordResetOtpCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PasswordResetOtpAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PasswordResetOtpSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PasswordResetOtpMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PasswordResetOtpMaxAggregateInputType
+  }
+
+  export type GetPasswordResetOtpAggregateType<T extends PasswordResetOtpAggregateArgs> = {
+        [P in keyof T & keyof AggregatePasswordResetOtp]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePasswordResetOtp[P]>
+      : GetScalarType<T[P], AggregatePasswordResetOtp[P]>
+  }
+
+
+
+
+  export type PasswordResetOtpGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PasswordResetOtpWhereInput
+    orderBy?: PasswordResetOtpOrderByWithAggregationInput | PasswordResetOtpOrderByWithAggregationInput[]
+    by: PasswordResetOtpScalarFieldEnum[] | PasswordResetOtpScalarFieldEnum
+    having?: PasswordResetOtpScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PasswordResetOtpCountAggregateInputType | true
+    _avg?: PasswordResetOtpAvgAggregateInputType
+    _sum?: PasswordResetOtpSumAggregateInputType
+    _min?: PasswordResetOtpMinAggregateInputType
+    _max?: PasswordResetOtpMaxAggregateInputType
+  }
+
+  export type PasswordResetOtpGroupByOutputType = {
+    id: string
+    userId: string
+    otpHash: string
+    attempts: number
+    isUsed: boolean
+    resetToken: string | null
+    expiresAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: PasswordResetOtpCountAggregateOutputType | null
+    _avg: PasswordResetOtpAvgAggregateOutputType | null
+    _sum: PasswordResetOtpSumAggregateOutputType | null
+    _min: PasswordResetOtpMinAggregateOutputType | null
+    _max: PasswordResetOtpMaxAggregateOutputType | null
+  }
+
+  type GetPasswordResetOtpGroupByPayload<T extends PasswordResetOtpGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PasswordResetOtpGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PasswordResetOtpGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PasswordResetOtpGroupByOutputType[P]>
+            : GetScalarType<T[P], PasswordResetOtpGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PasswordResetOtpSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    otpHash?: boolean
+    attempts?: boolean
+    isUsed?: boolean
+    resetToken?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["passwordResetOtp"]>
+
+  export type PasswordResetOtpSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    otpHash?: boolean
+    attempts?: boolean
+    isUsed?: boolean
+    resetToken?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["passwordResetOtp"]>
+
+  export type PasswordResetOtpSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    otpHash?: boolean
+    attempts?: boolean
+    isUsed?: boolean
+    resetToken?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["passwordResetOtp"]>
+
+  export type PasswordResetOtpSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    otpHash?: boolean
+    attempts?: boolean
+    isUsed?: boolean
+    resetToken?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PasswordResetOtpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "otpHash" | "attempts" | "isUsed" | "resetToken" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["passwordResetOtp"]>
+  export type PasswordResetOtpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PasswordResetOtpIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PasswordResetOtpIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PasswordResetOtpPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PasswordResetOtp"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      otpHash: string
+      attempts: number
+      isUsed: boolean
+      resetToken: string | null
+      expiresAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["passwordResetOtp"]>
+    composites: {}
+  }
+
+  type PasswordResetOtpGetPayload<S extends boolean | null | undefined | PasswordResetOtpDefaultArgs> = $Result.GetResult<Prisma.$PasswordResetOtpPayload, S>
+
+  type PasswordResetOtpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PasswordResetOtpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PasswordResetOtpCountAggregateInputType | true
+    }
+
+  export interface PasswordResetOtpDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PasswordResetOtp'], meta: { name: 'PasswordResetOtp' } }
+    /**
+     * Find zero or one PasswordResetOtp that matches the filter.
+     * @param {PasswordResetOtpFindUniqueArgs} args - Arguments to find a PasswordResetOtp
+     * @example
+     * // Get one PasswordResetOtp
+     * const passwordResetOtp = await prisma.passwordResetOtp.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PasswordResetOtpFindUniqueArgs>(args: SelectSubset<T, PasswordResetOtpFindUniqueArgs<ExtArgs>>): Prisma__PasswordResetOtpClient<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PasswordResetOtp that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PasswordResetOtpFindUniqueOrThrowArgs} args - Arguments to find a PasswordResetOtp
+     * @example
+     * // Get one PasswordResetOtp
+     * const passwordResetOtp = await prisma.passwordResetOtp.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PasswordResetOtpFindUniqueOrThrowArgs>(args: SelectSubset<T, PasswordResetOtpFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PasswordResetOtpClient<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PasswordResetOtp that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetOtpFindFirstArgs} args - Arguments to find a PasswordResetOtp
+     * @example
+     * // Get one PasswordResetOtp
+     * const passwordResetOtp = await prisma.passwordResetOtp.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PasswordResetOtpFindFirstArgs>(args?: SelectSubset<T, PasswordResetOtpFindFirstArgs<ExtArgs>>): Prisma__PasswordResetOtpClient<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PasswordResetOtp that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetOtpFindFirstOrThrowArgs} args - Arguments to find a PasswordResetOtp
+     * @example
+     * // Get one PasswordResetOtp
+     * const passwordResetOtp = await prisma.passwordResetOtp.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PasswordResetOtpFindFirstOrThrowArgs>(args?: SelectSubset<T, PasswordResetOtpFindFirstOrThrowArgs<ExtArgs>>): Prisma__PasswordResetOtpClient<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PasswordResetOtps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetOtpFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PasswordResetOtps
+     * const passwordResetOtps = await prisma.passwordResetOtp.findMany()
+     * 
+     * // Get first 10 PasswordResetOtps
+     * const passwordResetOtps = await prisma.passwordResetOtp.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const passwordResetOtpWithIdOnly = await prisma.passwordResetOtp.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PasswordResetOtpFindManyArgs>(args?: SelectSubset<T, PasswordResetOtpFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PasswordResetOtp.
+     * @param {PasswordResetOtpCreateArgs} args - Arguments to create a PasswordResetOtp.
+     * @example
+     * // Create one PasswordResetOtp
+     * const PasswordResetOtp = await prisma.passwordResetOtp.create({
+     *   data: {
+     *     // ... data to create a PasswordResetOtp
+     *   }
+     * })
+     * 
+     */
+    create<T extends PasswordResetOtpCreateArgs>(args: SelectSubset<T, PasswordResetOtpCreateArgs<ExtArgs>>): Prisma__PasswordResetOtpClient<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PasswordResetOtps.
+     * @param {PasswordResetOtpCreateManyArgs} args - Arguments to create many PasswordResetOtps.
+     * @example
+     * // Create many PasswordResetOtps
+     * const passwordResetOtp = await prisma.passwordResetOtp.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PasswordResetOtpCreateManyArgs>(args?: SelectSubset<T, PasswordResetOtpCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PasswordResetOtps and returns the data saved in the database.
+     * @param {PasswordResetOtpCreateManyAndReturnArgs} args - Arguments to create many PasswordResetOtps.
+     * @example
+     * // Create many PasswordResetOtps
+     * const passwordResetOtp = await prisma.passwordResetOtp.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PasswordResetOtps and only return the `id`
+     * const passwordResetOtpWithIdOnly = await prisma.passwordResetOtp.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PasswordResetOtpCreateManyAndReturnArgs>(args?: SelectSubset<T, PasswordResetOtpCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PasswordResetOtp.
+     * @param {PasswordResetOtpDeleteArgs} args - Arguments to delete one PasswordResetOtp.
+     * @example
+     * // Delete one PasswordResetOtp
+     * const PasswordResetOtp = await prisma.passwordResetOtp.delete({
+     *   where: {
+     *     // ... filter to delete one PasswordResetOtp
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PasswordResetOtpDeleteArgs>(args: SelectSubset<T, PasswordResetOtpDeleteArgs<ExtArgs>>): Prisma__PasswordResetOtpClient<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PasswordResetOtp.
+     * @param {PasswordResetOtpUpdateArgs} args - Arguments to update one PasswordResetOtp.
+     * @example
+     * // Update one PasswordResetOtp
+     * const passwordResetOtp = await prisma.passwordResetOtp.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PasswordResetOtpUpdateArgs>(args: SelectSubset<T, PasswordResetOtpUpdateArgs<ExtArgs>>): Prisma__PasswordResetOtpClient<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PasswordResetOtps.
+     * @param {PasswordResetOtpDeleteManyArgs} args - Arguments to filter PasswordResetOtps to delete.
+     * @example
+     * // Delete a few PasswordResetOtps
+     * const { count } = await prisma.passwordResetOtp.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PasswordResetOtpDeleteManyArgs>(args?: SelectSubset<T, PasswordResetOtpDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PasswordResetOtps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetOtpUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PasswordResetOtps
+     * const passwordResetOtp = await prisma.passwordResetOtp.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PasswordResetOtpUpdateManyArgs>(args: SelectSubset<T, PasswordResetOtpUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PasswordResetOtps and returns the data updated in the database.
+     * @param {PasswordResetOtpUpdateManyAndReturnArgs} args - Arguments to update many PasswordResetOtps.
+     * @example
+     * // Update many PasswordResetOtps
+     * const passwordResetOtp = await prisma.passwordResetOtp.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PasswordResetOtps and only return the `id`
+     * const passwordResetOtpWithIdOnly = await prisma.passwordResetOtp.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PasswordResetOtpUpdateManyAndReturnArgs>(args: SelectSubset<T, PasswordResetOtpUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PasswordResetOtp.
+     * @param {PasswordResetOtpUpsertArgs} args - Arguments to update or create a PasswordResetOtp.
+     * @example
+     * // Update or create a PasswordResetOtp
+     * const passwordResetOtp = await prisma.passwordResetOtp.upsert({
+     *   create: {
+     *     // ... data to create a PasswordResetOtp
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PasswordResetOtp we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PasswordResetOtpUpsertArgs>(args: SelectSubset<T, PasswordResetOtpUpsertArgs<ExtArgs>>): Prisma__PasswordResetOtpClient<$Result.GetResult<Prisma.$PasswordResetOtpPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PasswordResetOtps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetOtpCountArgs} args - Arguments to filter PasswordResetOtps to count.
+     * @example
+     * // Count the number of PasswordResetOtps
+     * const count = await prisma.passwordResetOtp.count({
+     *   where: {
+     *     // ... the filter for the PasswordResetOtps we want to count
+     *   }
+     * })
+    **/
+    count<T extends PasswordResetOtpCountArgs>(
+      args?: Subset<T, PasswordResetOtpCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PasswordResetOtpCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PasswordResetOtp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetOtpAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PasswordResetOtpAggregateArgs>(args: Subset<T, PasswordResetOtpAggregateArgs>): Prisma.PrismaPromise<GetPasswordResetOtpAggregateType<T>>
+
+    /**
+     * Group by PasswordResetOtp.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PasswordResetOtpGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PasswordResetOtpGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PasswordResetOtpGroupByArgs['orderBy'] }
+        : { orderBy?: PasswordResetOtpGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PasswordResetOtpGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPasswordResetOtpGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PasswordResetOtp model
+   */
+  readonly fields: PasswordResetOtpFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PasswordResetOtp.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PasswordResetOtpClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PasswordResetOtp model
+   */
+  interface PasswordResetOtpFieldRefs {
+    readonly id: FieldRef<"PasswordResetOtp", 'String'>
+    readonly userId: FieldRef<"PasswordResetOtp", 'String'>
+    readonly otpHash: FieldRef<"PasswordResetOtp", 'String'>
+    readonly attempts: FieldRef<"PasswordResetOtp", 'Int'>
+    readonly isUsed: FieldRef<"PasswordResetOtp", 'Boolean'>
+    readonly resetToken: FieldRef<"PasswordResetOtp", 'String'>
+    readonly expiresAt: FieldRef<"PasswordResetOtp", 'DateTime'>
+    readonly createdAt: FieldRef<"PasswordResetOtp", 'DateTime'>
+    readonly updatedAt: FieldRef<"PasswordResetOtp", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PasswordResetOtp findUnique
+   */
+  export type PasswordResetOtpFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetOtp to fetch.
+     */
+    where: PasswordResetOtpWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetOtp findUniqueOrThrow
+   */
+  export type PasswordResetOtpFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetOtp to fetch.
+     */
+    where: PasswordResetOtpWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetOtp findFirst
+   */
+  export type PasswordResetOtpFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetOtp to fetch.
+     */
+    where?: PasswordResetOtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetOtps to fetch.
+     */
+    orderBy?: PasswordResetOtpOrderByWithRelationInput | PasswordResetOtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PasswordResetOtps.
+     */
+    cursor?: PasswordResetOtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetOtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetOtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PasswordResetOtps.
+     */
+    distinct?: PasswordResetOtpScalarFieldEnum | PasswordResetOtpScalarFieldEnum[]
+  }
+
+  /**
+   * PasswordResetOtp findFirstOrThrow
+   */
+  export type PasswordResetOtpFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetOtp to fetch.
+     */
+    where?: PasswordResetOtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetOtps to fetch.
+     */
+    orderBy?: PasswordResetOtpOrderByWithRelationInput | PasswordResetOtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PasswordResetOtps.
+     */
+    cursor?: PasswordResetOtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetOtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetOtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PasswordResetOtps.
+     */
+    distinct?: PasswordResetOtpScalarFieldEnum | PasswordResetOtpScalarFieldEnum[]
+  }
+
+  /**
+   * PasswordResetOtp findMany
+   */
+  export type PasswordResetOtpFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which PasswordResetOtps to fetch.
+     */
+    where?: PasswordResetOtpWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PasswordResetOtps to fetch.
+     */
+    orderBy?: PasswordResetOtpOrderByWithRelationInput | PasswordResetOtpOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PasswordResetOtps.
+     */
+    cursor?: PasswordResetOtpWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PasswordResetOtps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PasswordResetOtps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PasswordResetOtps.
+     */
+    distinct?: PasswordResetOtpScalarFieldEnum | PasswordResetOtpScalarFieldEnum[]
+  }
+
+  /**
+   * PasswordResetOtp create
+   */
+  export type PasswordResetOtpCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PasswordResetOtp.
+     */
+    data: XOR<PasswordResetOtpCreateInput, PasswordResetOtpUncheckedCreateInput>
+  }
+
+  /**
+   * PasswordResetOtp createMany
+   */
+  export type PasswordResetOtpCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PasswordResetOtps.
+     */
+    data: PasswordResetOtpCreateManyInput | PasswordResetOtpCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PasswordResetOtp createManyAndReturn
+   */
+  export type PasswordResetOtpCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * The data used to create many PasswordResetOtps.
+     */
+    data: PasswordResetOtpCreateManyInput | PasswordResetOtpCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PasswordResetOtp update
+   */
+  export type PasswordResetOtpUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PasswordResetOtp.
+     */
+    data: XOR<PasswordResetOtpUpdateInput, PasswordResetOtpUncheckedUpdateInput>
+    /**
+     * Choose, which PasswordResetOtp to update.
+     */
+    where: PasswordResetOtpWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetOtp updateMany
+   */
+  export type PasswordResetOtpUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PasswordResetOtps.
+     */
+    data: XOR<PasswordResetOtpUpdateManyMutationInput, PasswordResetOtpUncheckedUpdateManyInput>
+    /**
+     * Filter which PasswordResetOtps to update
+     */
+    where?: PasswordResetOtpWhereInput
+    /**
+     * Limit how many PasswordResetOtps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PasswordResetOtp updateManyAndReturn
+   */
+  export type PasswordResetOtpUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * The data used to update PasswordResetOtps.
+     */
+    data: XOR<PasswordResetOtpUpdateManyMutationInput, PasswordResetOtpUncheckedUpdateManyInput>
+    /**
+     * Filter which PasswordResetOtps to update
+     */
+    where?: PasswordResetOtpWhereInput
+    /**
+     * Limit how many PasswordResetOtps to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PasswordResetOtp upsert
+   */
+  export type PasswordResetOtpUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PasswordResetOtp to update in case it exists.
+     */
+    where: PasswordResetOtpWhereUniqueInput
+    /**
+     * In case the PasswordResetOtp found by the `where` argument doesn't exist, create a new PasswordResetOtp with this data.
+     */
+    create: XOR<PasswordResetOtpCreateInput, PasswordResetOtpUncheckedCreateInput>
+    /**
+     * In case the PasswordResetOtp was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PasswordResetOtpUpdateInput, PasswordResetOtpUncheckedUpdateInput>
+  }
+
+  /**
+   * PasswordResetOtp delete
+   */
+  export type PasswordResetOtpDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
+    /**
+     * Filter which PasswordResetOtp to delete.
+     */
+    where: PasswordResetOtpWhereUniqueInput
+  }
+
+  /**
+   * PasswordResetOtp deleteMany
+   */
+  export type PasswordResetOtpDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PasswordResetOtps to delete
+     */
+    where?: PasswordResetOtpWhereInput
+    /**
+     * Limit how many PasswordResetOtps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PasswordResetOtp without action
+   */
+  export type PasswordResetOtpDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PasswordResetOtp
+     */
+    select?: PasswordResetOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PasswordResetOtp
+     */
+    omit?: PasswordResetOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PasswordResetOtpInclude<ExtArgs> | null
   }
 
 
@@ -5767,6 +7044,21 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const PasswordResetOtpScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    otpHash: 'otpHash',
+    attempts: 'attempts',
+    isUsed: 'isUsed',
+    resetToken: 'resetToken',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PasswordResetOtpScalarFieldEnum = (typeof PasswordResetOtpScalarFieldEnum)[keyof typeof PasswordResetOtpScalarFieldEnum]
+
+
   export const ResumeAnalysisScalarFieldEnum: {
     id: 'id',
     aiAnalysis: 'aiAnalysis',
@@ -5830,6 +7122,14 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   export const JsonNullValueFilter: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull,
@@ -5837,14 +7137,6 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -5895,20 +7187,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -5919,6 +7197,27 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -5954,6 +7253,7 @@ export namespace Prisma {
     resumeAnalyses?: ResumeAnalysisListRelationFilter
     feedbacks?: FeedbackListRelationFilter
     payments?: PaymentListRelationFilter
+    passwordResetOtps?: PasswordResetOtpListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5968,6 +7268,7 @@ export namespace Prisma {
     resumeAnalyses?: ResumeAnalysisOrderByRelationAggregateInput
     feedbacks?: FeedbackOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
+    passwordResetOtps?: PasswordResetOtpOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5985,6 +7286,7 @@ export namespace Prisma {
     resumeAnalyses?: ResumeAnalysisListRelationFilter
     feedbacks?: FeedbackListRelationFilter
     payments?: PaymentListRelationFilter
+    passwordResetOtps?: PasswordResetOtpListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -6013,6 +7315,83 @@ export namespace Prisma {
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type PasswordResetOtpWhereInput = {
+    AND?: PasswordResetOtpWhereInput | PasswordResetOtpWhereInput[]
+    OR?: PasswordResetOtpWhereInput[]
+    NOT?: PasswordResetOtpWhereInput | PasswordResetOtpWhereInput[]
+    id?: StringFilter<"PasswordResetOtp"> | string
+    userId?: StringFilter<"PasswordResetOtp"> | string
+    otpHash?: StringFilter<"PasswordResetOtp"> | string
+    attempts?: IntFilter<"PasswordResetOtp"> | number
+    isUsed?: BoolFilter<"PasswordResetOtp"> | boolean
+    resetToken?: StringNullableFilter<"PasswordResetOtp"> | string | null
+    expiresAt?: DateTimeFilter<"PasswordResetOtp"> | Date | string
+    createdAt?: DateTimeFilter<"PasswordResetOtp"> | Date | string
+    updatedAt?: DateTimeFilter<"PasswordResetOtp"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PasswordResetOtpOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    otpHash?: SortOrder
+    attempts?: SortOrder
+    isUsed?: SortOrder
+    resetToken?: SortOrderInput | SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type PasswordResetOtpWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    resetToken?: string
+    AND?: PasswordResetOtpWhereInput | PasswordResetOtpWhereInput[]
+    OR?: PasswordResetOtpWhereInput[]
+    NOT?: PasswordResetOtpWhereInput | PasswordResetOtpWhereInput[]
+    userId?: StringFilter<"PasswordResetOtp"> | string
+    otpHash?: StringFilter<"PasswordResetOtp"> | string
+    attempts?: IntFilter<"PasswordResetOtp"> | number
+    isUsed?: BoolFilter<"PasswordResetOtp"> | boolean
+    expiresAt?: DateTimeFilter<"PasswordResetOtp"> | Date | string
+    createdAt?: DateTimeFilter<"PasswordResetOtp"> | Date | string
+    updatedAt?: DateTimeFilter<"PasswordResetOtp"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "resetToken">
+
+  export type PasswordResetOtpOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    otpHash?: SortOrder
+    attempts?: SortOrder
+    isUsed?: SortOrder
+    resetToken?: SortOrderInput | SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PasswordResetOtpCountOrderByAggregateInput
+    _avg?: PasswordResetOtpAvgOrderByAggregateInput
+    _max?: PasswordResetOtpMaxOrderByAggregateInput
+    _min?: PasswordResetOtpMinOrderByAggregateInput
+    _sum?: PasswordResetOtpSumOrderByAggregateInput
+  }
+
+  export type PasswordResetOtpScalarWhereWithAggregatesInput = {
+    AND?: PasswordResetOtpScalarWhereWithAggregatesInput | PasswordResetOtpScalarWhereWithAggregatesInput[]
+    OR?: PasswordResetOtpScalarWhereWithAggregatesInput[]
+    NOT?: PasswordResetOtpScalarWhereWithAggregatesInput | PasswordResetOtpScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PasswordResetOtp"> | string
+    userId?: StringWithAggregatesFilter<"PasswordResetOtp"> | string
+    otpHash?: StringWithAggregatesFilter<"PasswordResetOtp"> | string
+    attempts?: IntWithAggregatesFilter<"PasswordResetOtp"> | number
+    isUsed?: BoolWithAggregatesFilter<"PasswordResetOtp"> | boolean
+    resetToken?: StringNullableWithAggregatesFilter<"PasswordResetOtp"> | string | null
+    expiresAt?: DateTimeWithAggregatesFilter<"PasswordResetOtp"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"PasswordResetOtp"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PasswordResetOtp"> | Date | string
   }
 
   export type ResumeAnalysisWhereInput = {
@@ -6228,6 +7607,7 @@ export namespace Prisma {
     resumeAnalyses?: ResumeAnalysisCreateNestedManyWithoutUserInput
     feedbacks?: FeedbackCreateNestedManyWithoutUserInput
     payments?: PaymentCreateNestedManyWithoutUserInput
+    passwordResetOtps?: PasswordResetOtpCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6242,6 +7622,7 @@ export namespace Prisma {
     resumeAnalyses?: ResumeAnalysisUncheckedCreateNestedManyWithoutUserInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutUserInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    passwordResetOtps?: PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6256,6 +7637,7 @@ export namespace Prisma {
     resumeAnalyses?: ResumeAnalysisUpdateManyWithoutUserNestedInput
     feedbacks?: FeedbackUpdateManyWithoutUserNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
+    passwordResetOtps?: PasswordResetOtpUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6270,6 +7652,7 @@ export namespace Prisma {
     resumeAnalyses?: ResumeAnalysisUncheckedUpdateManyWithoutUserNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutUserNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetOtps?: PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6301,6 +7684,89 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetOtpCreateInput = {
+    id?: string
+    otpHash: string
+    attempts?: number
+    isUsed?: boolean
+    resetToken?: string | null
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPasswordResetOtpsInput
+  }
+
+  export type PasswordResetOtpUncheckedCreateInput = {
+    id?: string
+    userId: string
+    otpHash: string
+    attempts?: number
+    isUsed?: boolean
+    resetToken?: string | null
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PasswordResetOtpUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    otpHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPasswordResetOtpsNestedInput
+  }
+
+  export type PasswordResetOtpUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    otpHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetOtpCreateManyInput = {
+    id?: string
+    userId: string
+    otpHash: string
+    attempts?: number
+    isUsed?: boolean
+    resetToken?: string | null
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PasswordResetOtpUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    otpHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetOtpUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    otpHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6563,6 +8029,12 @@ export namespace Prisma {
     none?: PaymentWhereInput
   }
 
+  export type PasswordResetOtpListRelationFilter = {
+    every?: PasswordResetOtpWhereInput
+    some?: PasswordResetOtpWhereInput
+    none?: PasswordResetOtpWhereInput
+  }
+
   export type ResumeAnalysisOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -6572,6 +8044,10 @@ export namespace Prisma {
   }
 
   export type PaymentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PasswordResetOtpOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6649,6 +8125,133 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type PasswordResetOtpCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    otpHash?: SortOrder
+    attempts?: SortOrder
+    isUsed?: SortOrder
+    resetToken?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PasswordResetOtpAvgOrderByAggregateInput = {
+    attempts?: SortOrder
+  }
+
+  export type PasswordResetOtpMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    otpHash?: SortOrder
+    attempts?: SortOrder
+    isUsed?: SortOrder
+    resetToken?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PasswordResetOtpMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    otpHash?: SortOrder
+    attempts?: SortOrder
+    isUsed?: SortOrder
+    resetToken?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PasswordResetOtpSumOrderByAggregateInput = {
+    attempts?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -6673,21 +8276,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -6697,16 +8285,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type ResumeAnalysisCountOrderByAggregateInput = {
@@ -6780,24 +8358,6 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -6812,17 +8372,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type FeedbackCountOrderByAggregateInput = {
@@ -6855,22 +8404,6 @@ export namespace Prisma {
 
   export type FeedbackSumOrderByAggregateInput = {
     rating?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type PaymentCountOrderByAggregateInput = {
@@ -6929,6 +8462,13 @@ export namespace Prisma {
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
   }
 
+  export type PasswordResetOtpCreateNestedManyWithoutUserInput = {
+    create?: XOR<PasswordResetOtpCreateWithoutUserInput, PasswordResetOtpUncheckedCreateWithoutUserInput> | PasswordResetOtpCreateWithoutUserInput[] | PasswordResetOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetOtpCreateOrConnectWithoutUserInput | PasswordResetOtpCreateOrConnectWithoutUserInput[]
+    createMany?: PasswordResetOtpCreateManyUserInputEnvelope
+    connect?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
+  }
+
   export type ResumeAnalysisUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ResumeAnalysisCreateWithoutUserInput, ResumeAnalysisUncheckedCreateWithoutUserInput> | ResumeAnalysisCreateWithoutUserInput[] | ResumeAnalysisUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ResumeAnalysisCreateOrConnectWithoutUserInput | ResumeAnalysisCreateOrConnectWithoutUserInput[]
@@ -6948,6 +8488,13 @@ export namespace Prisma {
     connectOrCreate?: PaymentCreateOrConnectWithoutUserInput | PaymentCreateOrConnectWithoutUserInput[]
     createMany?: PaymentCreateManyUserInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
+  export type PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PasswordResetOtpCreateWithoutUserInput, PasswordResetOtpUncheckedCreateWithoutUserInput> | PasswordResetOtpCreateWithoutUserInput[] | PasswordResetOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetOtpCreateOrConnectWithoutUserInput | PasswordResetOtpCreateOrConnectWithoutUserInput[]
+    createMany?: PasswordResetOtpCreateManyUserInputEnvelope
+    connect?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -7004,6 +8551,20 @@ export namespace Prisma {
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
+  export type PasswordResetOtpUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PasswordResetOtpCreateWithoutUserInput, PasswordResetOtpUncheckedCreateWithoutUserInput> | PasswordResetOtpCreateWithoutUserInput[] | PasswordResetOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetOtpCreateOrConnectWithoutUserInput | PasswordResetOtpCreateOrConnectWithoutUserInput[]
+    upsert?: PasswordResetOtpUpsertWithWhereUniqueWithoutUserInput | PasswordResetOtpUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PasswordResetOtpCreateManyUserInputEnvelope
+    set?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
+    disconnect?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
+    delete?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
+    connect?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
+    update?: PasswordResetOtpUpdateWithWhereUniqueWithoutUserInput | PasswordResetOtpUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PasswordResetOtpUpdateManyWithWhereWithoutUserInput | PasswordResetOtpUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PasswordResetOtpScalarWhereInput | PasswordResetOtpScalarWhereInput[]
+  }
+
   export type ResumeAnalysisUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ResumeAnalysisCreateWithoutUserInput, ResumeAnalysisUncheckedCreateWithoutUserInput> | ResumeAnalysisCreateWithoutUserInput[] | ResumeAnalysisUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ResumeAnalysisCreateOrConnectWithoutUserInput | ResumeAnalysisCreateOrConnectWithoutUserInput[]
@@ -7046,14 +8607,54 @@ export namespace Prisma {
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutResumeAnalysesInput = {
-    create?: XOR<UserCreateWithoutResumeAnalysesInput, UserUncheckedCreateWithoutResumeAnalysesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutResumeAnalysesInput
+  export type PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PasswordResetOtpCreateWithoutUserInput, PasswordResetOtpUncheckedCreateWithoutUserInput> | PasswordResetOtpCreateWithoutUserInput[] | PasswordResetOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PasswordResetOtpCreateOrConnectWithoutUserInput | PasswordResetOtpCreateOrConnectWithoutUserInput[]
+    upsert?: PasswordResetOtpUpsertWithWhereUniqueWithoutUserInput | PasswordResetOtpUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PasswordResetOtpCreateManyUserInputEnvelope
+    set?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
+    disconnect?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
+    delete?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
+    connect?: PasswordResetOtpWhereUniqueInput | PasswordResetOtpWhereUniqueInput[]
+    update?: PasswordResetOtpUpdateWithWhereUniqueWithoutUserInput | PasswordResetOtpUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PasswordResetOtpUpdateManyWithWhereWithoutUserInput | PasswordResetOtpUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PasswordResetOtpScalarWhereInput | PasswordResetOtpScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutPasswordResetOtpsInput = {
+    create?: XOR<UserCreateWithoutPasswordResetOtpsInput, UserUncheckedCreateWithoutPasswordResetOtpsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPasswordResetOtpsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type UserUpdateOneRequiredWithoutPasswordResetOtpsNestedInput = {
+    create?: XOR<UserCreateWithoutPasswordResetOtpsInput, UserUncheckedCreateWithoutPasswordResetOtpsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPasswordResetOtpsInput
+    upsert?: UserUpsertWithoutPasswordResetOtpsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPasswordResetOtpsInput, UserUpdateWithoutPasswordResetOtpsInput>, UserUncheckedUpdateWithoutPasswordResetOtpsInput>
+  }
+
+  export type UserCreateNestedOneWithoutResumeAnalysesInput = {
+    create?: XOR<UserCreateWithoutResumeAnalysesInput, UserUncheckedCreateWithoutResumeAnalysesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutResumeAnalysesInput
+    connect?: UserWhereUniqueInput
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -7076,14 +8677,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutFeedbacksInput, UserUncheckedCreateWithoutFeedbacksInput>
     connectOrCreate?: UserCreateOrConnectWithoutFeedbacksInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutFeedbacksNestedInput = {
@@ -7192,6 +8785,11 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -7204,6 +8802,58 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -7240,23 +8890,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -7282,33 +8915,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type ResumeAnalysisCreateWithoutUserInput = {
@@ -7392,6 +8998,38 @@ export namespace Prisma {
 
   export type PaymentCreateManyUserInputEnvelope = {
     data: PaymentCreateManyUserInput | PaymentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PasswordResetOtpCreateWithoutUserInput = {
+    id?: string
+    otpHash: string
+    attempts?: number
+    isUsed?: boolean
+    resetToken?: string | null
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PasswordResetOtpUncheckedCreateWithoutUserInput = {
+    id?: string
+    otpHash: string
+    attempts?: number
+    isUsed?: boolean
+    resetToken?: string | null
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PasswordResetOtpCreateOrConnectWithoutUserInput = {
+    where: PasswordResetOtpWhereUniqueInput
+    create: XOR<PasswordResetOtpCreateWithoutUserInput, PasswordResetOtpUncheckedCreateWithoutUserInput>
+  }
+
+  export type PasswordResetOtpCreateManyUserInputEnvelope = {
+    data: PasswordResetOtpCreateManyUserInput | PasswordResetOtpCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -7482,6 +9120,109 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Payment"> | Date | string
   }
 
+  export type PasswordResetOtpUpsertWithWhereUniqueWithoutUserInput = {
+    where: PasswordResetOtpWhereUniqueInput
+    update: XOR<PasswordResetOtpUpdateWithoutUserInput, PasswordResetOtpUncheckedUpdateWithoutUserInput>
+    create: XOR<PasswordResetOtpCreateWithoutUserInput, PasswordResetOtpUncheckedCreateWithoutUserInput>
+  }
+
+  export type PasswordResetOtpUpdateWithWhereUniqueWithoutUserInput = {
+    where: PasswordResetOtpWhereUniqueInput
+    data: XOR<PasswordResetOtpUpdateWithoutUserInput, PasswordResetOtpUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PasswordResetOtpUpdateManyWithWhereWithoutUserInput = {
+    where: PasswordResetOtpScalarWhereInput
+    data: XOR<PasswordResetOtpUpdateManyMutationInput, PasswordResetOtpUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PasswordResetOtpScalarWhereInput = {
+    AND?: PasswordResetOtpScalarWhereInput | PasswordResetOtpScalarWhereInput[]
+    OR?: PasswordResetOtpScalarWhereInput[]
+    NOT?: PasswordResetOtpScalarWhereInput | PasswordResetOtpScalarWhereInput[]
+    id?: StringFilter<"PasswordResetOtp"> | string
+    userId?: StringFilter<"PasswordResetOtp"> | string
+    otpHash?: StringFilter<"PasswordResetOtp"> | string
+    attempts?: IntFilter<"PasswordResetOtp"> | number
+    isUsed?: BoolFilter<"PasswordResetOtp"> | boolean
+    resetToken?: StringNullableFilter<"PasswordResetOtp"> | string | null
+    expiresAt?: DateTimeFilter<"PasswordResetOtp"> | Date | string
+    createdAt?: DateTimeFilter<"PasswordResetOtp"> | Date | string
+    updatedAt?: DateTimeFilter<"PasswordResetOtp"> | Date | string
+  }
+
+  export type UserCreateWithoutPasswordResetOtpsInput = {
+    id?: string
+    fullName: string
+    email: string
+    password: string
+    gender: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    resumeAnalyses?: ResumeAnalysisCreateNestedManyWithoutUserInput
+    feedbacks?: FeedbackCreateNestedManyWithoutUserInput
+    payments?: PaymentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPasswordResetOtpsInput = {
+    id?: string
+    fullName: string
+    email: string
+    password: string
+    gender: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    resumeAnalyses?: ResumeAnalysisUncheckedCreateNestedManyWithoutUserInput
+    feedbacks?: FeedbackUncheckedCreateNestedManyWithoutUserInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPasswordResetOtpsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPasswordResetOtpsInput, UserUncheckedCreateWithoutPasswordResetOtpsInput>
+  }
+
+  export type UserUpsertWithoutPasswordResetOtpsInput = {
+    update: XOR<UserUpdateWithoutPasswordResetOtpsInput, UserUncheckedUpdateWithoutPasswordResetOtpsInput>
+    create: XOR<UserCreateWithoutPasswordResetOtpsInput, UserUncheckedCreateWithoutPasswordResetOtpsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPasswordResetOtpsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPasswordResetOtpsInput, UserUncheckedUpdateWithoutPasswordResetOtpsInput>
+  }
+
+  export type UserUpdateWithoutPasswordResetOtpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resumeAnalyses?: ResumeAnalysisUpdateManyWithoutUserNestedInput
+    feedbacks?: FeedbackUpdateManyWithoutUserNestedInput
+    payments?: PaymentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPasswordResetOtpsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resumeAnalyses?: ResumeAnalysisUncheckedUpdateManyWithoutUserNestedInput
+    feedbacks?: FeedbackUncheckedUpdateManyWithoutUserNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutResumeAnalysesInput = {
     id?: string
     fullName: string
@@ -7493,6 +9234,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     feedbacks?: FeedbackCreateNestedManyWithoutUserInput
     payments?: PaymentCreateNestedManyWithoutUserInput
+    passwordResetOtps?: PasswordResetOtpCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutResumeAnalysesInput = {
@@ -7506,6 +9248,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutUserInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    passwordResetOtps?: PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutResumeAnalysesInput = {
@@ -7535,6 +9278,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     feedbacks?: FeedbackUpdateManyWithoutUserNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
+    passwordResetOtps?: PasswordResetOtpUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutResumeAnalysesInput = {
@@ -7548,6 +9292,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     feedbacks?: FeedbackUncheckedUpdateManyWithoutUserNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetOtps?: PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutFeedbacksInput = {
@@ -7561,6 +9306,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     resumeAnalyses?: ResumeAnalysisCreateNestedManyWithoutUserInput
     payments?: PaymentCreateNestedManyWithoutUserInput
+    passwordResetOtps?: PasswordResetOtpCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFeedbacksInput = {
@@ -7574,6 +9320,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     resumeAnalyses?: ResumeAnalysisUncheckedCreateNestedManyWithoutUserInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    passwordResetOtps?: PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFeedbacksInput = {
@@ -7603,6 +9350,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resumeAnalyses?: ResumeAnalysisUpdateManyWithoutUserNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
+    passwordResetOtps?: PasswordResetOtpUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFeedbacksInput = {
@@ -7616,6 +9364,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resumeAnalyses?: ResumeAnalysisUncheckedUpdateManyWithoutUserNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetOtps?: PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPaymentsInput = {
@@ -7629,6 +9378,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     resumeAnalyses?: ResumeAnalysisCreateNestedManyWithoutUserInput
     feedbacks?: FeedbackCreateNestedManyWithoutUserInput
+    passwordResetOtps?: PasswordResetOtpCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -7642,6 +9392,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     resumeAnalyses?: ResumeAnalysisUncheckedCreateNestedManyWithoutUserInput
     feedbacks?: FeedbackUncheckedCreateNestedManyWithoutUserInput
+    passwordResetOtps?: PasswordResetOtpUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -7671,6 +9422,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resumeAnalyses?: ResumeAnalysisUpdateManyWithoutUserNestedInput
     feedbacks?: FeedbackUpdateManyWithoutUserNestedInput
+    passwordResetOtps?: PasswordResetOtpUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -7684,6 +9436,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resumeAnalyses?: ResumeAnalysisUncheckedUpdateManyWithoutUserNestedInput
     feedbacks?: FeedbackUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetOtps?: PasswordResetOtpUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ResumeAnalysisCreateManyUserInput = {
@@ -7711,6 +9464,17 @@ export namespace Prisma {
     razorpayOrderId: string
     razorpayPaymentId: string
     createdAt?: Date | string
+  }
+
+  export type PasswordResetOtpCreateManyUserInput = {
+    id?: string
+    otpHash: string
+    attempts?: number
+    isUsed?: boolean
+    resetToken?: string | null
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ResumeAnalysisUpdateWithoutUserInput = {
@@ -7792,6 +9556,39 @@ export namespace Prisma {
     razorpayOrderId?: StringFieldUpdateOperationsInput | string
     razorpayPaymentId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetOtpUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    otpHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetOtpUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    otpHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PasswordResetOtpUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    otpHash?: StringFieldUpdateOperationsInput | string
+    attempts?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    resetToken?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

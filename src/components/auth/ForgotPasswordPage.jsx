@@ -50,11 +50,14 @@ export default function ForgotPasswordPage() {
 
       const expiryTime = Date.now() + 60 * 1000;
 
+      sessionStorage.setItem("resetToken", data.resetToken);
       sessionStorage.setItem("otpExpiryTime", expiryTime.toString());
+      sessionStorage.setItem("resetStage", "verify");
 
       toast.success(data.message);
 
-      router.push(`/verify-otp?email=${encodeURIComponent(payload.email)}`);
+      // router.push(`/verify-otp?email=${encodeURIComponent(payload.email)}`);
+      router.push("/verify-otp");
     } catch (error) {
       console.error(error);
 

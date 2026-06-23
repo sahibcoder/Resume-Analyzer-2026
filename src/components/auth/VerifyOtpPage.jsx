@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ShieldCheck, Loader2 } from "lucide-react";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,9 +11,8 @@ import { Input } from "@/components/ui/input";
 
 export default function VerifyOtpPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const email = searchParams.get("email") || "";
+  const [resetToken, setResetToken] = useState(null);
+  const [isReady, setIsReady] = useState(false);
 
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [countdown, setCountdown] = useState(0);
@@ -22,29 +21,28 @@ export default function VerifyOtpPage() {
 
   const inputRefs = useRef([]);
 
-  // Redirect if email missing
   useEffect(() => {
-    if (!email) {
+    const token = sessionStorage.getItem("resetToken");
+    const stage = sessionStorage.getItem("resetStage");
+
+    if (!token || stage !== "verify") {
       router.replace("/forgot-password");
-    }
-  }, [email, router]);
-
-  // Restore timer from sessionStorage
-  useEffect(() => {
-    const expiryTime = sessionStorage.getItem("otpExpiryTime");
-
-    if (!expiryTime) {
-      setCountdown(0);
       return;
     }
+    setResetToken(token);
+    setIsReady(true);
 
-    const remainingSeconds = Math.max(
-      0,
-      Math.floor((Number(expiryTime) - Date.now()) / 1000)
-    );
+    const expiryTime = sessionStorage.getItem("otpExpiryTime");
 
-    setCountdown(remainingSeconds);
-  }, []);
+    if (expiryTime) {
+      const remainingSeconds = Math.max(
+        0,
+        Math.floor((Number(expiryTime) - Date.now()) / 1000),
+      );
+
+      setCountdown(remainingSeconds);
+    }
+  }, [router]);
 
   // Countdown
   useEffect(() => {
@@ -64,19 +62,19 @@ export default function VerifyOtpPage() {
     return () => clearInterval(timer);
   }, [countdown]);
 
-  const maskEmail = (email) => {
-    if (!email) return "";
+  // const maskEmail = (email) => {
+  //   if (!email) return "";
 
-    const [name, domain] = email.split("@");
+  //   const [name, domain] = email.split("@");
 
-    if (!name || !domain) return email;
+  //   if (!name || !domain) return email;
 
-    if (name.length <= 2) {
-      return `${name[0]}***@${domain}`;
-    }
+  //   if (name.length <= 2) {
+  //     return `${name[0]}***@${domain}`;
+  //   }
 
-    return `${name.slice(0, 2)}***@${domain}`;
-  };
+  //   return `${name.slice(0, 2)}***@${domain}`;
+  // };
 
   const handleOtpChange = (index, value) => {
     if (!/^\d*$/.test(value)) return;
@@ -134,6 +132,13 @@ export default function VerifyOtpPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!resetToken) {
+      toast.error("Session expired. Please try again.");
+
+      router.replace("/forgot-password");
+      return;
+    }
+
     const finalOtp = otp.join("");
 
     if (finalOtp.length !== 6) {
@@ -144,25 +149,33 @@ export default function VerifyOtpPage() {
     try {
       setIsSubmitting(true);
 
-    //   const response = await fetch("/api/auth/verify-otp", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       email,
-    //       otp: finalOtp,
-    //     }),
-    //   });
+      const response = await fetch("/api/auth/verify-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          resetToken,
+          otp: finalOtp,
+        }),
+      });
 
-    //   const result = await response.json();
+      const result = await response.json();
 
-    //   if (!response.ok) {
-    //     toast.error(result.message || "OTP verification failed");
-    //     return;
-    //   }
+      if (!response.ok) {
+        toast.error(result.message || "OTP verification failed");
+        return;
+      }
+
+      //  sessionStorage.removeItem("otpExpiryTime", expiryTime.toString());
 
       toast.success("OTP verified successfully");
+      // clear session storage
+      sessionStorage.removeItem("otpExpiryTime");
+      sessionStorage.setItem("resetStage", "reset");
+
+      // optional: clear OTP state bhi
+      setOtp(["", "", "", "", "", ""]);
 
       router.push("/reset-password");
     } catch (error) {
@@ -177,17 +190,25 @@ export default function VerifyOtpPage() {
     try {
       setIsResending(true);
 
+      if (!resetToken) {
+        toast.error("Session expired. Please try again.");
+
+        router.replace("/forgot-password");
+        return;
+      }
+
       const response = await fetch("/api/auth/resend-otp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
+          resetToken,
         }),
       });
 
       const result = await response.json();
+      console.log("result check :", result)
 
       if (!response.ok) {
         toast.error(result.message || "Failed to resend OTP");
@@ -196,14 +217,11 @@ export default function VerifyOtpPage() {
 
       const expiryTime = Date.now() + 60 * 1000;
 
-      sessionStorage.setItem(
-        "otpExpiryTime",
-        expiryTime.toString()
-      );
+      sessionStorage.setItem("otpExpiryTime", expiryTime.toString());
 
       setCountdown(60);
 
-      toast.success("OTP sent successfully");
+      toast.success("OTP sent successfully.");
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong");
@@ -211,6 +229,14 @@ export default function VerifyOtpPage() {
       setIsResending(false);
     }
   };
+
+  if (!isReady) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Loader2 className="h-6 w-6 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center bg-slate-50 px-4 py-10">
@@ -223,17 +249,15 @@ export default function VerifyOtpPage() {
                 <ShieldCheck className="h-7 w-7 text-cyan-700" />
               </div>
 
-              <h1 className="text-2xl font-bold text-slate-900">
-                Verify OTP
-              </h1>
+              <h1 className="text-2xl font-bold text-slate-900">Verify OTP</h1>
 
               <p className="mt-2 text-sm text-slate-500">
                 We've sent a 6-digit code to
               </p>
 
-              <p className="mt-1 font-medium text-slate-800">
+              {/* <p className="mt-1 font-medium text-slate-800">
                 {maskEmail(email)}
-              </p>
+              </p> */}
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -251,12 +275,8 @@ export default function VerifyOtpPage() {
                     autoComplete="one-time-code"
                     maxLength={1}
                     onPaste={handlePaste}
-                    onChange={(e) =>
-                      handleOtpChange(index, e.target.value)
-                    }
-                    onKeyDown={(e) =>
-                      handleKeyDown(index, e)
-                    }
+                    onChange={(e) => handleOtpChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
                     className="h-12 w-12 text-center text-lg font-semibold"
                   />
                 ))}
@@ -265,10 +285,7 @@ export default function VerifyOtpPage() {
               {/* Verify Button */}
               <Button
                 type="submit"
-                disabled={
-                  isSubmitting ||
-                  otp.join("").length !== 6
-                }
+                disabled={isSubmitting || otp.join("").length !== 6}
                 className="w-full cursor-pointer"
               >
                 {isSubmitting ? (

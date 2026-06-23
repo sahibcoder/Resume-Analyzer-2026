@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Lock, Eye, EyeOff, Loader2, CheckCircle2 } from "lucide-react";
@@ -35,36 +35,53 @@ const initialValues = {
 
 export default function ResetPasswordPage() {
   const router = useRouter();
+
+  const [resetToken, setResetToken] = useState(null);
+  const [isReady, setIsReady] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("resetToken");
+    const stage = sessionStorage.getItem("resetStage");
+
+    if (!token || stage !== "reset") {
+      router.replace("/verify-otp");
+      return;
+    }
+
+    setResetToken(token);
+    setIsReady(true);
+  }, [router]);
+
   const handleSubmit = async (values, { setSubmitting }) => {
-    console.log("Reset Password :", values);
+    // console.log("Reset Password :", values);
 
     try {
-      //   const response = await fetch(
-      //     "/api/auth/reset-password",
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         password: values.password,
-      //       }),
-      //     }
-      //   );
+      const response = await fetch("/api/auth/reset-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          resetToken,
+          password: values.password,
+        }),
+      });
 
-      //   const result = await response.json();
+      const result = await response.json();
 
-      //   if (!response.ok) {
-      //     toast.error(
-      //       result.message || "Failed to reset password"
-      //     );
-      //     return;
-      //   }
+      if (!response.ok) {
+        toast.error(result.message || "Failed to reset password");
+        return;
+      }
 
       toast.success("Password reset successfully");
+
+      // clear session storage
+      sessionStorage.removeItem("resetToken");
+      sessionStorage.removeItem("resetStage");
+      // sessionStorage.removeItem("otpExpiryTime");
 
       // redirect to login
       router.push("/login");
@@ -75,6 +92,14 @@ export default function ResetPasswordPage() {
       setSubmitting(false);
     }
   };
+
+  if (!isReady) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Loader2 className="h-6 w-6 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center bg-slate-50 px-4 py-10">
